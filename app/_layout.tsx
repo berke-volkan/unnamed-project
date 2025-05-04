@@ -156,8 +156,17 @@ const InitialLayout = () => {
           },
         }}
       />
-
-
+      <Stack.Screen
+        name="(authenticated)/clubs/create-new/page"
+        options={{
+          title: 'Yeni bir kulüp oluştur',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: Colors.background,
+          },
+        }}
+      />
       
     </Stack>
   );

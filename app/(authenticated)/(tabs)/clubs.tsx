@@ -8,47 +8,76 @@ import { useRouter } from 'expo-router'
 const mock_data = [
   {
     id: '1',
-    name:"Verified",
-    logo:"",
-    desc:"Verified Users | You cant leave",
-    school:"Staff Team",
-    notMember:false,
-    memberCount:10,
-    memberLimit:20,
-    howToJoin:"default"
+    name: "Verified",
+    logo: "",
+    desc: "Verified Users | You cant leave",
+    school: "Staff Team",
+    notMember: false,
+    memberCount: 10,
+    memberLimit: 20,
+    howToJoin: "default"
   },
   {
     id: "2",
-    name:"mangoClub",
-    desc:"Club of mango lovers",
-    school:"X School",
-    notMember:true,
-    memberCount:20,
-    memberLimit:22,
-    howToJoin:"Open to all",
+    name: "mangoClub",
+    desc: "Club of mango lovers",
+    school: "X School",
+    notMember: true,
+    memberCount: 20,
+    memberLimit: 22,
+    howToJoin: "Open to all",
   },
   {
     id: '3',
-    name:"hackX",
-    logo:"",
-    desc:"Join us to hack!",
-    school:"online",
-    notMember:true,
-    memberCount:10,
-    memberLimit:20,
-    howToJoin:"Invite Only",
+    name: "hackX",
+    logo: "",
+    desc: "Join us to hack!",
+    school: "online",
+    notMember: true,
+    memberCount: 10,
+    memberLimit: 20,
+    howToJoin: "Invite Only",
   },
   {
     id: "4",
-    name:"bananaClub",
-    desc:"Club of banana lovers",
-    school:"Z School",
-    notMember:false,
-    memberCount:20,
-    memberLimit:21,
-    howToJoin:"Open to all",
+    name: "bananaClub",
+    desc: "Club of banana lovers",
+    school: "Z School",
+    notMember: false,
+    memberCount: 20,
+    memberLimit: 21,
+    howToJoin: "Open to all",
   },
-
+  {
+    id: "5",
+    name: "codingNinjas",
+    desc: "Competitive programming",
+    school: "Tech University",
+    notMember: true,
+    memberCount: 15,
+    memberLimit: 25,
+    howToJoin: "Open to all",
+  },
+  {
+    id: "6",
+    name: "bookLovers",
+    desc: "For passionate readers",
+    school: "online",
+    notMember: false,
+    memberCount: 12,
+    memberLimit: 30,
+    howToJoin: "Open to all",
+  },
+  {
+    id: "7",
+    name: "chessClub",
+    desc: "Strategic minds welcome",
+    school: "Y Academy",
+    notMember: true,
+    memberCount: 8,
+    memberLimit: 10,
+    howToJoin: "Invite Only",
+  }
 ];
 
 
@@ -106,7 +135,7 @@ const Page = () => {
         <Text style={{fontWeight:700,fontSize:25,width:"100%",marginLeft:5}}>
           İçinde bulunduğun kulüpler ({clubCount}/5):
         </Text>
-        <View style={{flexDirection:"row",marginTop:10}}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
         {mock_data.map((item,index)=>(
             <View key={index}>
             {(!item.notMember) && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
@@ -127,17 +156,12 @@ const Page = () => {
             </View>}
             </View>
          ))}
-        </View>
+        </ScrollView>
           
           
           <Text style={{fontWeight:700,fontSize:25,width:"100%",marginLeft:5}}>Katılacak bir kulüp bul ({5-clubCount}/5):</Text>
 
-          <View style={{
-          flexDirection:"column",
-          paddingRight:"50%"
-        }
-        }>
-          <View style={{flexDirection:"row"}}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
           {mock_data.map((item,index)=>(
             <View key={index}>
               {(item.notMember) && (
@@ -155,10 +179,9 @@ const Page = () => {
               </View>
 
            ))}
-        </View>
-        </View>
+           </ScrollView>
 
-         <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:10,width:50,alignSelf:"flex-end",marginTop:5,marginRight:8}} onPress={()=>{}}>
+         <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:10,width:50,alignSelf:"flex-end",marginTop:5,marginRight:8}} onPress={()=>{router.push({pathname:"/clubs/create-new/page"})}}>
           <Ionicons name="add-circle-outline" size={24} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%",paddingBottom:5}}/>
          </TouchableOpacity>
         </ScrollView>
@@ -182,8 +205,8 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.lightGray,
     width:130,
     height:200,
-    marginLeft:"20%",
-    marginTop:"10%",
+    marginLeft:"5%",
+    marginTop:"5%",
     borderRadius:"7%"
   },
   clubText:{
