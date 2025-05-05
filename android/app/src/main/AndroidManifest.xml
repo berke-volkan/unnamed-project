@@ -29,5 +29,17 @@
         <data android:scheme="project"/>
       </intent-filter>
     </activity>
+    <activity-alias android:name="com.kzlpndx.project.MainActivityicon1" android:enabled="false" android:exported="true" android:icon="@mipmap/icon1" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+    <activity-alias android:name="com.kzlpndx.project.MainActivityicon2" android:enabled="false" android:exported="true" android:icon="@mipmap/icon2" android:targetActivity=".MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
   </application>
 </manifest>

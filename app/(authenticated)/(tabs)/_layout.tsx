@@ -37,7 +37,7 @@ const Layout = () => {
             }}
         />
         <Tabs.Screen
-            name="settings"
+            name="setting"
             options={{
             title: 'Ayarlar',
             headerShown: false,

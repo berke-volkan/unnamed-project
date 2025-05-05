@@ -76,7 +76,6 @@ const InitialLayout = () => {
       </View>
     );
   }
-
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />

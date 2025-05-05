@@ -1,10 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Link } from 'expo-router'
+import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
 const mock_data = [
   {
     id: '1',
@@ -118,13 +119,24 @@ const mock_event_data=[
   
 const clubpanel = () => {
   const { club } = useLocalSearchParams<{ club: string }>()
+  const [classname, setClass] = React.useState<StyleProp<ViewStyle> | undefined>(undefined)
+
+  useEffect(()=>{
+    console.log("r")
+    mock_data.map(item=>{
+      if(item.name===club && item.admin===true){
+        setClass(styles.class1)
+      }else{
+        setClass(styles.class2)
+      }
+    });
+  }, []);
   return (
     <View>
       <Ionicons name='chatbubble-ellipses-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />
       <Text style={{textAlign:"center",fontWeight:"bold",fontSize:36}}>{club} | {mock_data.find((item) => item.name === club)?.memberCount}/{mock_data.find((item) => item.name === club)?.memberLimit}</Text>
       <Text style={{textAlign:"center",fontSize:20}}>{mock_data.find((item) => item.name === club)?.desc}</Text>
       <Text style={{textAlign:"center",fontSize:16,fontStyle:"italic"}}>Powered by {mock_data.find((item) => item.name === club)?.school}</Text>
-      {mock_data.find((item) => item.name === club)?.admin===true && <TouchableOpacity style={{backgroundColor:"red"}}><Text style={{textAlign:"center"}}>Manage Members</Text></TouchableOpacity>}
       <Text style={{fontSize:30,fontWeight:"bold"}}>Club Calendar</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
       {mock_event_data.map((item,index)=>(
@@ -145,8 +157,39 @@ const clubpanel = () => {
                     <Text style={{marginLeft:"auto"}}>{club}'s Special Private Channel</Text>
                 </View>
             </Link>
-    </View>
+            <Text style={{fontSize:30,fontWeight:"bold"}}>History</Text>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
+      {mock_event_data.map((item,index)=>(
+        <View key={index} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5}}>
+          <Ionicons name='lock-closed-sharp' size={20} color={Colors.gray} style={{marginLeft:"5%"}}/>
+          <Text style={{fontSize:26}}>{item.name}</Text>
+          <Text style={{fontSize:20}}>{item.desc}</Text>
+          <Text style={{fontSize:16}}>{item.date}/{item.time}</Text>
+        </View>
+      ))}
+      </ScrollView>
+      <View style={{width:"100%", height:500}}>
+        <View style={{flexDirection: "row", justifyContent: "center", gap: 10}}>
+          <TouchableOpacity style={classname}>
+        <Ionicons name='images-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
+          </TouchableOpacity>
+          {mock_data.find((item) => item.name === club)?.admin===true && (
+        <TouchableOpacity style={classname}>
+          <Ionicons name='settings-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
+        </TouchableOpacity>
+          )}
+        </View>
+        </View>
+         </View>
   )
 }
 
+const styles = StyleSheet.create({
+  class1:{
+    backgroundColor:Colors.primaryMuted,width:"50%",marginTop:105,alignItems:"flex-start",paddingBottom:5
+  },
+  class2:{
+    backgroundColor:Colors.primaryMuted,width:"100%",marginTop:105,alignItems:"center",paddingBottom:5
+  }
+})
 export default clubpanel

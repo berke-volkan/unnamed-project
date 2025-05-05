@@ -1,11 +1,13 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { UserButton } from '@clerk/clerk-react'
 
 const Page4 = () => {
   return (
-    <View>
-      <Text>Page</Text>
-    </View>
+    <SafeAreaView>
+      <Text style={{fontWeight:"bold",fontSize:46,textAlign:"center"}}>💎 Ayarlar</Text>
+    </SafeAreaView>
   )
 }
 
