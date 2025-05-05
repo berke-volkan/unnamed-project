@@ -142,6 +142,7 @@ const InitialLayout = () => {
           headerStyle: {
             backgroundColor: Colors.background,
           },
+          headerBackButtonMenuEnabled:false
         }}
       />
       <Stack.Screen
@@ -166,7 +167,6 @@ const InitialLayout = () => {
           },
         }}
       />
-      
     </Stack>
   );
 };

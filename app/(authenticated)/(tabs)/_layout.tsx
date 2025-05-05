@@ -37,6 +37,22 @@ const Layout = () => {
             }}
         />
         <Tabs.Screen
+            name="pomodoro"
+            options={{
+            title: 'Pomodoro',
+            headerShown: false,
+            tabBarIcon: () => <Text>🍅</Text>
+            }}
+        />
+        <Tabs.Screen
+            name="workspace"
+            options={{
+            title: 'Workspace',
+            headerShown: false,
+            tabBarIcon: () => <Text>🧰</Text>
+            }}
+        />
+        <Tabs.Screen
             name="setting"
             options={{
             title: 'Ayarlar',
@@ -44,6 +60,7 @@ const Layout = () => {
             tabBarIcon: () => <Text>⚙️</Text>,
             }}
         />
+
     </Tabs>
   )
 }
