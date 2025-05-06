@@ -30,7 +30,7 @@ const workspace = () => {
     <SafeAreaView>
       <ScrollView>
       <Text style={{fontWeight:"bold",fontSize:46,textAlign:"center"}}>🧰 Workspace</Text>
-      <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5}}>Calendar</Text>
+      <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:10}}>Calendar</Text>
       <Calendar
       onDayPress={day => {
         setSelected(day.dateString);
@@ -39,6 +39,7 @@ const workspace = () => {
       markedDates={{
         [selected]: {selected: true, disableTouchEvent: true, selectedColor: Colors.primaryMuted},
       }}
+      style={{marginTop:5,marginBottom:10}}
     />
       <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5}}>Tasks (Latest 3)</Text>
       {mock_task_data.map((task) => (
@@ -67,12 +68,15 @@ const workspace = () => {
           </View>
         ))}
        </View>
-       <TouchableOpacity style={{backgroundColor:"red",width:"25%",borderRadius:5,marginTop:19,marginLeft:290}}>
-        <Text style={{color:"white",textAlign:"center"}} >See All</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={{backgroundColor:"blue",width:"25%",borderRadius:5,marginTop:19,marginLeft:290}}>
-        <Text style={{color:"white",textAlign:"center"}} >Create New</Text>
-      </TouchableOpacity>
+       <View >
+          <TouchableOpacity style={{backgroundColor:"red",width:"25%",borderRadius:5,marginTop:19,marginLeft:290}}>
+            <Text style={{color:"white",textAlign:"center"}} >See All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{backgroundColor:"blue",width:"25%",borderRadius:5,marginTop:19,marginLeft:290}}>
+            <Text style={{color:"white",textAlign:"center"}} >Create New</Text>
+          </TouchableOpacity>
+       </View>
+
       </ScrollView>
     </SafeAreaView>
   )

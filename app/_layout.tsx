@@ -139,10 +139,7 @@ const InitialLayout = () => {
           title: '',
           headerBackTitle: '',
           headerShadowVisible: false,
-          headerStyle: {
-            backgroundColor: Colors.background,
-          },
-          headerBackButtonMenuEnabled:false
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -167,6 +164,14 @@ const InitialLayout = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="(authenticated)/teams/deadlines/[team]"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerShown:false,
+        }}/>
     </Stack>
   );
 };

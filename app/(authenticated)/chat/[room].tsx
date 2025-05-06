@@ -5,6 +5,7 @@ import { StyleSheet,TouchableOpacity } from 'react-native'
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const mock_data=[
   {"sender":"Ali","message":"Hello","time":"12:00"},
@@ -23,34 +24,43 @@ const chatroom = () => {
   const room= useLocalSearchParams<{room:string}>()
   const router=useRouter()
   return (
+    <SafeAreaView>
     <ScrollView>
       <View style={styles.topbar}>
           <TouchableOpacity onPress={()=>{router.push("/(authenticated)/(tabs)/chat")}}>
               <Ionicons name="arrow-back" size={34} color={Colors.dark} />
           </TouchableOpacity>
-        <Text style={styles.topbarText}>{room.room}</Text>
+        <View style={{flexDirection:"column"}}>
+         <Text style={styles.topbarText}>{room.room}</Text>
+         <Text>Desc</Text>
+        </View>
+
         </View>
         <View style={{flexDirection:"column",alignItems:"center"}}>
         {mock_data.map((item,index)=>(
           /* TODO: Fix Styling & Better message Display */
-          <View key={index} style={{marginTop:10,paddingTop:10,backgroundColor:Colors.primaryMuted,borderRadius:5,width:"75%",flexDirection:"row",alignItems:"center"}}>
-            <Ionicons name="person-circle-outline" size={24} color={Colors.dark} onPress={()=>{alert(`Sender of this msg: ${item.sender}`)}}/>
-            <Text>{item.message}</Text>
-            <Text style={{marginLeft:"auto",paddingRight:10}}>{item.time}</Text>
+          <View key={index} style={{marginTop:10,paddingTop:10,backgroundColor:Colors.primaryMuted,borderRadius:5,width:"90%",flexDirection:"row",alignItems:"center"}}>
+            <Ionicons style={{marginBottom:10,marginLeft:10}} name="person-circle-outline" size={24} color={Colors.dark} onPress={()=>{alert(`Sender of this msg: ${item.sender}`)}}/>
+            <Text style={{marginBottom:10,marginLeft:10}}>{item.message}</Text>
+            <Text style={{marginLeft:"auto",paddingRight:10,marginBottom:10}}>{item.time}</Text>
           </View>
         ))}
         </View>
         <View style={styles.bottombar}>
           <TextInput 
           placeholder='Write your message'
-          style={{backgroundColor:Colors.lightGray,width:"80%",height:40}}
+          style={{backgroundColor:Colors.lightGray,width:"70%",height:40,marginLeft:10,borderRadius:10}}
           /> 
           <View style={{width:1}}/>
-          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:45,alignItems:"center"}}>
+          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:45,alignItems:"center",marginLeft:5}}>
+            <Ionicons name='document-attach-outline'  color={Colors.primary} style={{margin:10}} size={18}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:45,alignItems:"center",marginLeft:5}}>
             <Ionicons name='send'  color={Colors.primary} style={{margin:10}} size={22}/>
           </TouchableOpacity>
         </View>
     </ScrollView>
+    </SafeAreaView>
   )
 }
 const styles= StyleSheet.create({
@@ -58,15 +68,18 @@ const styles= StyleSheet.create({
     height:50,
     backgroundColor:Colors.background,
     justifyContent:"flex-start",
-    flexDirection:"row"
+    flexDirection:"row",
+    marginTop:15,
   },
   bottombar:{
     paddingTop:20,
     alignItems:"center",
     flexDirection:"row",
+    marginLeft:10
   },
   topbarText:{
-    paddingTop:9
+    paddingTop:2,
+    fontWeight:"bold"
   }
 
 })
