@@ -1,7 +1,10 @@
 import Colors from '@/constants/Colors'
 import { defaultStyles } from '@/constants/Styles'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
+import { 
+  Link, 
+  useRouter 
+} from 'expo-router'
 import React from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 const signup = () => {

@@ -1,7 +1,8 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import React from 'react'
-import { StyleSheet, View, Text,StatusBar} from 'react-native'
+import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -30,7 +31,7 @@ const Item = ({title}: ItemProps) => (
 );
 
 const Page = () => {
-  
+  const router = useRouter()
   const name="John Doe"
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>
@@ -81,7 +82,11 @@ const Page = () => {
          </View>
          </View>
         </View>
-
+        <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,height:60,alignItems:"center",marginTop:175}} onPress={()=>{
+          router.push("/(authenticated)/tinder/select")
+        }}>
+          <Ionicons name="people-circle-outline" size={40} color={Colors.primary} style={{alignSelf:"center",marginTop:10}}/>
+        </TouchableOpacity>
 
       </SafeAreaView>
   )

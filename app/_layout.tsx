@@ -1,14 +1,29 @@
 import Colors from '@/constants/Colors';
-import { ClerkProvider, SignedIn, useAuth } from '@clerk/clerk-expo';
+
+import { 
+  ClerkProvider, 
+  SignedIn, 
+  useAuth } from '@clerk/clerk-expo';
+
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { Link, Stack, useRouter, useSegments } from 'expo-router';
+
+import { 
+  Link, 
+  Stack, 
+  useRouter, 
+  useSegments } from 'expo-router';
+
 import * as SecureStore from 'expo-secure-store';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { 
+  ActivityIndicator, 
+  TouchableOpacity, 
+  View 
+} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -171,6 +186,44 @@ const InitialLayout = () => {
           headerBackTitle: '',
           headerShadowVisible: false,
           headerShown:false,
+        }}/>
+      <Stack.Screen
+        name="(authenticated)/events/speakers/[event]"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerShown:false,
+        }}/>
+      <Stack.Screen
+        name="(authenticated)/tinder/select"
+        options={{
+          title: 'plsdontoverthinkandgivemeaname',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+        }}/>
+              <Stack.Screen
+        name="(authenticated)/tinder/studybuddy"
+        options={{
+          title: 'omgareyouarealrealrealuser',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+        }}/>
+        <Stack.Screen
+        name="(authenticated)/tinder/project"
+        options={{
+          title: 'wooooow',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
         }}/>
     </Stack>
   );

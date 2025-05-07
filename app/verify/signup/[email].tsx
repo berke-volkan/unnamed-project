@@ -1,9 +1,23 @@
 import Colors from '@/constants/Colors'
 import { defaultStyles } from '@/constants/Styles'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useLocalSearchParams, useRouter } from 'expo-router'
+
+import { 
+  Link, 
+  useLocalSearchParams, 
+  useRouter 
+} from 'expo-router'
+
 import React, { Fragment, useEffect } from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
+import { 
+  Alert, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  View 
+} from 'react-native'
+
 import {
   CodeField,
   Cursor,
