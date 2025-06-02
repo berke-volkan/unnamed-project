@@ -55,11 +55,7 @@ const mock_data = [
 const page = () => {
   const router=useRouter()
   return (
-<<<<<<< HEAD
     <ScrollView>
-=======
-    <View>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       <View>
         {mock_data.map((select) => (
           <TouchableOpacity key={select.id} onPress={()=>router.push(select.url as any)} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
@@ -71,11 +67,7 @@ const page = () => {
           </TouchableOpacity>
         ))}
         </View>
-<<<<<<< HEAD
     </ScrollView>
-=======
-    </View>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   )
 }
 

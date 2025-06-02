@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-=======
-import { View, Text, TouchableOpacity } from 'react-native'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 import React, { useEffect } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import Colors from '@/constants/Colors';
@@ -10,13 +6,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Link } from 'expo-router'
 import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
-<<<<<<< HEAD
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig';
 
-=======
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_data = [
   {
     id: '1',

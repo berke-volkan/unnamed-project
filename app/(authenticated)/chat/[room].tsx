@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { View, Text, Alert, Image } from 'react-native'
 import React, { useEffect } from 'react'
-=======
-import { View, Text, Alert } from 'react-native'
-import React from 'react'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 import { useLocalSearchParams,useRouter } from 'expo-router'
 import { StyleSheet,TouchableOpacity } from 'react-native'
 import Colors from '@/constants/Colors'
@@ -77,16 +72,11 @@ loadMessages()}
           </TouchableOpacity>
         <View style={{flexDirection:"column"}}>
          <Text style={styles.topbarText}>{room.room}</Text>
-<<<<<<< HEAD
          <Text>{desc}</Text>
-=======
-         <Text>Desc</Text>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         </View>
 
         </View>
         <View style={{flexDirection:"column",alignItems:"center"}}>
-<<<<<<< HEAD
         {msgList.length!==0 && msgList.map((item,index)=>(
           <View key={index} style={{marginTop:10,paddingTop:10,backgroundColor:Colors.primaryMuted,borderRadius:5,width:"90%",flexDirection:"row",alignItems:"center"}}>
 
@@ -95,13 +85,6 @@ loadMessages()}
             <Text style={{fontWeight:"bold",marginLeft:10,marginBottom:10}}>{item.sender}</Text>
             </View>
             <Text style={{marginBottom:10,marginLeft:5,textAlign:"left"}}>{item.message}</Text>
-=======
-        {mock_data.map((item,index)=>(
-          /* TODO: Fix Styling & Better message Display */
-          <View key={index} style={{marginTop:10,paddingTop:10,backgroundColor:Colors.primaryMuted,borderRadius:5,width:"90%",flexDirection:"row",alignItems:"center"}}>
-            <Ionicons style={{marginBottom:10,marginLeft:10}} name="person-circle-outline" size={24} color={Colors.dark} onPress={()=>{alert(`Sender of this msg: ${item.sender}`)}}/>
-            <Text style={{marginBottom:10,marginLeft:10}}>{item.message}</Text>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
             <Text style={{marginLeft:"auto",paddingRight:10,marginBottom:10}}>{item.time}</Text>
           </View>
         ))}
@@ -109,7 +92,6 @@ loadMessages()}
         <View style={styles.bottombar}>
           <TextInput 
           placeholder='Write your message'
-<<<<<<< HEAD
           style={{backgroundColor:Colors.lightGray,width:"60%",height:40,marginLeft:10,borderRadius:10,textAlign:"center"}}
           onChange={(e)=>{setMsg(e.nativeEvent.text)}}
           value={msg}
@@ -119,15 +101,6 @@ loadMessages()}
             <Ionicons name='document-attach-outline'  color={Colors.primary} style={{margin:10}} size={22}/>
           </TouchableOpacity>
           <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:40,alignItems:"center",marginLeft:5}} onPress={()=>(sendMessage(msg),setMsg(""))}>
-=======
-          style={{backgroundColor:Colors.lightGray,width:"70%",height:40,marginLeft:10,borderRadius:10}}
-          /> 
-          <View style={{width:1}}/>
-          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:45,alignItems:"center",marginLeft:5}}>
-            <Ionicons name='document-attach-outline'  color={Colors.primary} style={{margin:10}} size={18}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:45,alignItems:"center",marginLeft:5}}>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
             <Ionicons name='send'  color={Colors.primary} style={{margin:10}} size={22}/>
           </TouchableOpacity>
         </View>
@@ -135,12 +108,9 @@ loadMessages()}
     </SafeAreaView>
   )
 }
-<<<<<<< HEAD
 export default chatroom
 
 
-=======
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const styles= StyleSheet.create({
   topbar:{
     height:50,
@@ -161,8 +131,3 @@ const styles= StyleSheet.create({
   }
 
 })
-<<<<<<< HEAD
-
-=======
-export default chatroom
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
