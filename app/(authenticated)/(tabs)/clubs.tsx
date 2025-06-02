@@ -1,6 +1,5 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
-<<<<<<< HEAD
 import React, { useEffect } from 'react'
 import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import {  ScrollView } from 'react-native-gesture-handler'
@@ -10,13 +9,6 @@ import { firebaseConfig } from '@/firebaseConfig'
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 
-=======
-import React from 'react'
-import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
-import { FlatList, ScrollView } from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useRouter } from 'expo-router'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_data = [
   {
     id: '1',
@@ -232,7 +224,6 @@ const mock_teams_Data = [
 
 const Page = () => {
   const router = useRouter()
-<<<<<<< HEAD
   const [clubs,setClubs] = React.useState<{name:string,desc:string,school:string,notMember:string,memberCount:number,memberLimit:number,howToJoin:string}[]>([]);
   let clubNames: string[] = [];
   const app = initializeApp(firebaseConfig);
@@ -284,18 +275,12 @@ const Page = () => {
     console.log(clubs)
   },[])
 
-=======
-  let clubCount = mock_data.filter((item) => !item.notMember).length;
-
-
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   const joinClub = (clubName:string) => {
     console.log(`Joining ${clubName}...`);
     if (clubCount===5) {
       alert("You can only join 5 clubs at a time")
       return
     }else{
-<<<<<<< HEAD
       clubs.map((item) => {
         if (item.name === clubName) {
           item.notMember = "false";
@@ -307,22 +292,11 @@ const Page = () => {
           memberCount: item.memberCount,
           memberLimit: item.memberLimit,
         })
-=======
-      mock_data.map((item) => {
-        if (item.name === clubName) {
-          item.notMember = false;
-          item.memberCount += 1;
-          clubCount += 1;
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         }
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
 
-<<<<<<< HEAD
-=======
-    // TODO: Integrate with Clerk Orgamizations
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   }
   const leaveFromClub = (clubName:string) => {
     console.log(`Leaving ${clubName}...`);

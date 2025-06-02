@@ -1,24 +1,16 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
-<<<<<<< HEAD
 import { Link, useRouter } from 'expo-router'
-=======
-import { Link } from 'expo-router'
-import { setParams } from 'expo-router/build/global-state/routing'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 import React from 'react'
 import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
-<<<<<<< HEAD
 import { getDatabase } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig'
 import { ref, onValue } from "firebase/database";
 import { useEffect } from 'react'
 
-=======
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
 const mock_data = {
   "category": {
@@ -172,16 +164,10 @@ const Page1 = () => {
           </Link>
         ))}
         </View>
-<<<<<<< HEAD
 
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:5}}>{length2} Other Channels</Text>
         <View>
         {channels!=null && channels.filter((channel) => channel.unread==="false").map((channel) => (
-=======
-        <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:5}}>{length2} Other Channels</Text>
-        <View>
-        {mock_data.category.channel.filter((channel) => channel.unread===false).map((channel) => (
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
           <Link href={{pathname:"/chat/[room]",params:{room:channel.name}}}  key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
 
               {channel.public==="public" && <Ionicons name='earth-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
@@ -194,10 +180,6 @@ const Page1 = () => {
           </Link>
         ))}
         </View>
-<<<<<<< HEAD
-
-=======
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         </ScrollView>
       </SafeAreaView>
   )
