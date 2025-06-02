@@ -6,24 +6,38 @@ import {
   useRouter 
 } from 'expo-router'
 import React from 'react'
+<<<<<<< HEAD
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native' 
 import { useSignIn } from '@clerk/clerk-expo'
 const signup = () => {
     console.log("signup")
+=======
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+const signup = () => {
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
   const [countrycode,setCountryCode]=React.useState("+49")
   const [email,setEmail]=React.useState("")
   const {signUp} = useSignUp()
   const router= useRouter()
   const KeyboardOffset= Platform.OS === 'ios' ? 80 : 70
+<<<<<<< HEAD
   const {signIn} = useSignIn()
+=======
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
   const onSignup = async () => {
     console.log("email",email)
     try {
       if (!signUp) return;
+<<<<<<< HEAD
         await signUp.create({ emailAddress: email });
         await signUp.prepareEmailAddressVerification();
+=======
+      await signUp.create({ emailAddress: email });
+      await signUp.prepareEmailAddressVerification()
+
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       router.push({
         pathname: '/verify/signup/[email]',
         params: { email: email }

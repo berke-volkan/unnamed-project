@@ -8,6 +8,10 @@ import {
   View, 
   Image,
   TouchableOpacity,
+<<<<<<< HEAD
+=======
+  StyleSheet,
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -30,7 +34,11 @@ const mock_data_competitions = [
     when: "2023-11-15",
     where: "Tokyo/Japan",
     category: ["Robotics", "AI"],
+<<<<<<< HEAD
     teams: ["Team C", "Team D"],
+=======
+    teams: ["Team C", "Team D", "Team E"],
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     imageUrl: "https://cdn.teknofest.org/media/upload/userFormUpload/2_89KY0.jpg",
     link: "https://roboticschallenge.org"
   },
@@ -137,14 +145,22 @@ const Events = () => {
           </Text>
           <View style={{flexDirection:"row",marginLeft:40}}> 
           {item.category.map((cat, index) => (
+<<<<<<< HEAD
             <View key={index} style={{backgroundColor:Colors.primary,width:"40%",borderRadius:10,padding:5,marginTop:10,marginLeft:5}}>
+=======
+            <View key={index} style={{backgroundColor:Colors.primary,width:"30%",borderRadius:10,padding:5,marginTop:10,marginLeft:5}}>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <Text style={{textAlign:"center",color:"white"}}>{cat}</Text>
             </View>
           ))}
           </View>
           <View style={{flexDirection:"row",marginLeft:40}}> 
           {item.teams.map((team, index) => (
+<<<<<<< HEAD
             <View key={index} style={{backgroundColor:Colors.gray,width:"40%",borderRadius:10,padding:5,marginTop:10,marginLeft:5,marginBottom:10}}>
+=======
+            <View key={index} style={{backgroundColor:Colors.gray,width:"30%",borderRadius:10,padding:5,marginTop:10,marginLeft:5,marginBottom:10}}>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <Text style={{textAlign:"center",color:"white"}}>{team}</Text>
             </View>
           ))}

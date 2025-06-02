@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { View, Text, TouchableOpacity, Image } from 'react-native'
+=======
+import { View, Text, TouchableOpacity } from 'react-native'
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 import React, { useEffect } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import Colors from '@/constants/Colors';
@@ -6,10 +10,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Link } from 'expo-router'
 import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
+<<<<<<< HEAD
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig';
 
+=======
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_data = [
   {
     id: '1',
@@ -60,6 +67,7 @@ const mock_data = [
 
 ];
 
+<<<<<<< HEAD
 const mock_event_data = [
   {
     name: "HackX",
@@ -115,6 +123,75 @@ const clubpanel = () => {
 
 
   useEffect(()=>{
+=======
+const mock_event_data=[
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+  {
+    name:"HackX",
+    desc:"Lets hack together",
+    date:"2025-05-05",
+    time:"10:00 AM",
+    location:"https://maps.google.com/maps",
+  },
+
+]
+
+  
+const clubpanel = () => {
+  const { club } = useLocalSearchParams<{ club: string }>()
+  const [classname, setClass] = React.useState<StyleProp<ViewStyle> | undefined>(undefined)
+
+  useEffect(()=>{
+    console.log("r")
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     mock_data.map(item=>{
       if(item.name===club && item.admin===true){
         setClass(styles.class1)
@@ -122,6 +199,7 @@ const clubpanel = () => {
         setClass(styles.class2)
       }
     });
+<<<<<<< HEAD
     getClubInfo(club)
   }, []);
   return (
@@ -134,6 +212,19 @@ const clubpanel = () => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
       {mock_event_data.map((item,index)=>(
         <View key={index} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,width:"10%"}}>
+=======
+  }, []);
+  return (
+    <View>
+      <Ionicons name='chatbubble-ellipses-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />
+      <Text style={{textAlign:"center",fontWeight:"bold",fontSize:36}}>{club} | {mock_data.find((item) => item.name === club)?.memberCount}/{mock_data.find((item) => item.name === club)?.memberLimit}</Text>
+      <Text style={{textAlign:"center",fontSize:20}}>{mock_data.find((item) => item.name === club)?.desc}</Text>
+      <Text style={{textAlign:"center",fontSize:16,fontStyle:"italic"}}>Powered by {mock_data.find((item) => item.name === club)?.school}</Text>
+      <Text style={{fontSize:30,fontWeight:"bold"}}>Club Calendar</Text>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
+      {mock_event_data.map((item,index)=>(
+        <View key={index} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5}}>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
           <Text style={{fontSize:26}}>{item.name}</Text>
           <Text style={{fontSize:20}}>{item.desc}</Text>
           <Text style={{fontSize:16}}>{item.date}/{item.time}</Text>
@@ -142,12 +233,30 @@ const clubpanel = () => {
         </View>
       ))}
       </ScrollView>
+<<<<<<< HEAD
       <Text style={{fontSize:30,fontWeight:"bold"}}>History</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
       {mock_event_data.map((item,index)=>(
         <View key={index} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,width:"30%"}}>
           <Image src={item.image} width={200} height={105}/>
           <Text style={{fontSize:26}}>{item.name}</Text>
+=======
+      <Text style={{fontSize:30,fontWeight:"bold"}}>Club Only Private Chat</Text>
+            <Link  href={{pathname:"/chat/[room]",params:{room:club}}}  replace style={{flexDirection:"row",backgroundColor:Colors.lightGray,marginBottom:"1%",height:25,alignItems:"center"}}>
+                <View  style={{flexDirection:"row",backgroundColor:Colors.lightGray,marginBottom:"1%",height:25,alignItems:"center"}} >
+                  <Ionicons name='lock-closed-sharp' size={20} color={Colors.gray} style={{marginLeft:"5%"}}/>
+                    <Text style={{marginLeft:"5%"}}>{club}</Text>
+                    <Text style={{marginLeft:"auto"}}>{club}'s Special Private Channel</Text>
+                </View>
+            </Link>
+            <Text style={{fontSize:30,fontWeight:"bold"}}>History</Text>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
+      {mock_event_data.map((item,index)=>(
+        <View key={index} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5}}>
+          <Ionicons name='lock-closed-sharp' size={20} color={Colors.gray} style={{marginLeft:"5%"}}/>
+          <Text style={{fontSize:26}}>{item.name}</Text>
+          <Text style={{fontSize:20}}>{item.desc}</Text>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
           <Text style={{fontSize:16}}>{item.date}/{item.time}</Text>
         </View>
       ))}
@@ -164,7 +273,11 @@ const clubpanel = () => {
           )}
         </View>
         </View>
+<<<<<<< HEAD
          </ScrollView>
+=======
+         </View>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   )
 }
 

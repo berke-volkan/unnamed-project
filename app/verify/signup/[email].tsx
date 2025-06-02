@@ -24,11 +24,18 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
+<<<<<<< HEAD
 import { useSignIn } from '@clerk/clerk-expo'
 const CELL_COUNT = 6;
 
 const EmailVerification = () => {
   const {signIn} = useSignIn()
+=======
+
+const CELL_COUNT = 6;
+
+const EmailVerification = () => {
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   const { isLoaded, signUp, setActive } = useSignUp()
   const { email } = useLocalSearchParams<{ email: string }>()
   const [code, setCode] = React.useState('')
@@ -39,22 +46,39 @@ const EmailVerification = () => {
     value: code,
     setValue: setCode,
   })
+<<<<<<< HEAD
   
   useEffect(() => {
     if (code.length === CELL_COUNT) {
       handleVerification()
     }
   }, [code])
+=======
+
+
+
+  useEffect(() => {
+    if (code.length === CELL_COUNT) {
+      handleVerification();
+    }
+  }, [code]);
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
   const handleVerification = async () => {
     if (!isLoaded || !signUp) return;
 
     try {
+<<<<<<< HEAD
 
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code,
       });
       
+=======
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({
+        code,
+      });
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
       if (signUpAttempt.status === 'complete') {
         await setActive({ session: signUpAttempt.createdSessionId });

@@ -27,9 +27,14 @@ enum SIgnInType {
   email,Email,Google,Apple
 }
 const login = () => {
+<<<<<<< HEAD
     console.log("login")
   const router = useRouter()
 
+=======
+  const router = useRouter()
+  const {signIn} = useSignIn()
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
   const [countrycode,setCountryCode]=useState("+90")
   const [email,setemail]=useState("")
@@ -39,7 +44,24 @@ const login = () => {
     if(type=SIgnInType.email){
       try{
         const fullemail = `${countrycode}${email}`;
+<<<<<<< HEAD
         router.push({pathname:"/verify/signup/[email]",params:{email:fullemail}})
+=======
+
+        const { supportedFirstFactors } = await signIn!.create({
+          identifier: fullemail,
+        });
+        const firstemailFactor: any = supportedFirstFactors?.find((factor: any) => {
+          return factor.strategy === 'email_code';
+        });
+
+        const { emailId } = firstemailFactor;
+        await signIn!.prepareFirstFactor({ 
+          strategy: 'email_code',
+          emailAddressId: emailId,
+
+         });
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       }
       catch (err) {
         console.log("Error signing up",err)

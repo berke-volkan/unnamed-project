@@ -1,5 +1,6 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
+<<<<<<< HEAD
 import React, { useEffect } from 'react'
 import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import {  ScrollView } from 'react-native-gesture-handler'
@@ -9,6 +10,13 @@ import { firebaseConfig } from '@/firebaseConfig'
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 
+=======
+import React from 'react'
+import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
+import { FlatList, ScrollView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from 'expo-router'
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_data = [
   {
     id: '1',
@@ -224,6 +232,7 @@ const mock_teams_Data = [
 
 const Page = () => {
   const router = useRouter()
+<<<<<<< HEAD
   const [clubs,setClubs] = React.useState<{name:string,desc:string,school:string,notMember:string,memberCount:number,memberLimit:number,howToJoin:string}[]>([]);
   let clubNames: string[] = [];
   const app = initializeApp(firebaseConfig);
@@ -275,12 +284,18 @@ const Page = () => {
     console.log(clubs)
   },[])
 
+=======
+  let clubCount = mock_data.filter((item) => !item.notMember).length;
+
+
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   const joinClub = (clubName:string) => {
     console.log(`Joining ${clubName}...`);
     if (clubCount===5) {
       alert("You can only join 5 clubs at a time")
       return
     }else{
+<<<<<<< HEAD
       clubs.map((item) => {
         if (item.name === clubName) {
           item.notMember = "false";
@@ -292,11 +307,22 @@ const Page = () => {
           memberCount: item.memberCount,
           memberLimit: item.memberLimit,
         })
+=======
+      mock_data.map((item) => {
+        if (item.name === clubName) {
+          item.notMember = false;
+          item.memberCount += 1;
+          clubCount += 1;
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         }
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
 
+<<<<<<< HEAD
+=======
+    // TODO: Integrate with Clerk Orgamizations
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   }
   const leaveFromClub = (clubName:string) => {
     console.log(`Leaving ${clubName}...`);
@@ -304,6 +330,7 @@ const Page = () => {
       alert("You are not a member of any club")
       return
     }else{
+<<<<<<< HEAD
       clubs.map((item) => {
         if (item.name === clubName) {
           item.notMember = "true";
@@ -316,6 +343,14 @@ const Page = () => {
         })
         }
 
+=======
+      mock_data.map((item) => {
+        if (item.name === clubName) {
+          item.notMember = true;
+          item.memberCount -= 1;
+          clubCount -= 1;
+        }
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
@@ -336,9 +371,15 @@ const Page = () => {
           İçinde bulunduğun kulüpler ({clubCount}/5):
         </Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
+<<<<<<< HEAD
         {clubs.map((item,index)=>(
             <View key={index}>
             {(item.notMember)==="false" && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
+=======
+        {mock_data.map((item,index)=>(
+            <View key={index}>
+            {(!item.notMember) && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
               <Text style={styles.clubText}>{item.name}</Text>
               <Text style={styles.clubDescText}>{item.desc}</Text>
@@ -362,9 +403,15 @@ const Page = () => {
           <Text style={{fontWeight:700,fontSize:25,width:"100%",marginLeft:5}}>Katılacak bir kulüp bul ({5-clubCount}/5):</Text>
 
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
+<<<<<<< HEAD
           {clubs.map((item,index)=>(
             <View key={index}>
               {(item.notMember==="true") && (
+=======
+          {mock_data.map((item,index)=>(
+            <View key={index}>
+              {(item.notMember) && (
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <View style={styles.clubs} >
                 <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
                 <Text style={styles.clubText}>{item.name}</Text>
