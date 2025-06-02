@@ -225,6 +225,94 @@ const InitialLayout = () => {
             backgroundColor: Colors.background,
           }
         }}/>
+        <Stack.Screen
+        name="(authenticated)/perks/claim/[perk]"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+                <Stack.Screen
+        name="(authenticated)/perks/main"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+                        <Stack.Screen
+        name="(authenticated)/perks/info/[perk]"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+                                <Stack.Screen
+        name="(authenticated)/adminstration/school"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+                                        <Stack.Screen
+        name="(authenticated)/adminstration/verify"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+        <Stack.Screen
+        name="(authenticated)/school/[school]"
+        options={{
+          title: '',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+        <Stack.Screen
+        name="(authenticated)/school/announcements/[school]"
+        options={{
+          title: 'Announcements',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
+        <Stack.Screen
+        name="(authenticated)/tinder/tutor"
+        options={{
+          title: 'Find a tutor',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
     </Stack>
   );
 };

@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Colors from '@/constants/Colors'
 import { ScrollView } from 'react-native-gesture-handler'
-import {Calendar, LocaleConfig} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import { useState } from 'react'
 import CheckBox from '@react-native-community/checkbox';
 

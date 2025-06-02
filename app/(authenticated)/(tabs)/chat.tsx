@@ -1,11 +1,24 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
+<<<<<<< HEAD
+import { Link, useRouter } from 'expo-router'
+=======
 import { Link } from 'expo-router'
 import { setParams } from 'expo-router/build/global-state/routing'
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 import React from 'react'
 import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
+<<<<<<< HEAD
+import { getDatabase } from "firebase/database";
+import { initializeApp } from 'firebase/app'
+import { firebaseConfig } from '@/firebaseConfig'
+import { ref, onValue } from "firebase/database";
+import { useEffect } from 'react'
+
+=======
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 
 const mock_data = {
   "category": {
@@ -78,17 +91,76 @@ const mock_data = {
     ]
   }
 }
+
 const Page1 = () => {
-  
+  const router=useRouter()
   const name="John Doe"
   const length = mock_data.category.channel.filter((channel)=>channel.unread).length
   const length2 = mock_data.category.channel.length-length
+  const app = initializeApp(firebaseConfig);
+  const db=getDatabase(app);;
+  const [channels, setchannels] = React.useState<{name:string,desc:string,public:string,unread:string}[]>([]);
+  let channelNames: string[] = [];
+  
+  const getChannels = () => {
+    const channelsRef = ref(db, 'chat');
+
+    onValue(channelsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            channelNames.push(childSnapshot.key as string);
+          });
+          
+          channelNames.forEach((channelName) => {
+            const channelRef = ref(db, `chat/${channelName}`);
+            onValue(channelRef, (childSnapshot) => {
+              const data = childSnapshot.val();
+              if (data) {
+                setchannels((prevchannels) => [
+                  ...prevchannels,
+                  {
+                    name: channelName,
+                    desc: data.desc || "No description available",
+                    public: data.public || "public",
+                    unread: data.unread || "false",
+                  }
+                ]);
+              }
+            });
+          });
+
+
+          } else {
+          console.log("No data available at /chat");
+}
+    }
+  
+  );
+  }
+
+  useEffect(()=>{
+    getChannels()
+    console.log(channels)
+  },[])
+
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>
+
+        <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:3,marginBottom:2}}>My School</Text>
+        <TouchableOpacity  style={{backgroundColor:Colors.primaryMuted,width:"90%",marginLeft:"5%",borderRadius:15,marginBottom:"5%"}}  onPress={()=>(router.push({pathname:"/(authenticated)/school/[school]",params:{school:"XYZ"}}))} >
+
+
+         <View style={{flexDirection:"row"}}>
+              <Ionicons name='home-outline' size={60} color={"black"} style={{padding:8,alignSelf:"center"}} />
+              <Text style={{textAlign:"center",width:"55%",fontWeight:"bold",fontSize:25,textAlignVertical:"center"}}>XYZ</Text>
+          </View>
+
+        </TouchableOpacity>
+
         <ScrollView>
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5}}>{length} Unread Channel</Text>
         <View>
-        {mock_data.category.channel.filter((channel) => channel.unread).map((channel) => (
+        {channels!=null && channels.filter((channel) => channel.unread==="true").map((channel) => (
           <Link href={{pathname:"/chat/[room]",params:{room:channel.name}}}  key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
               {channel.public==="public" && <Ionicons name='earth-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
               {channel.public==="invitation" && <Ionicons name='link-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
@@ -100,9 +172,16 @@ const Page1 = () => {
           </Link>
         ))}
         </View>
+<<<<<<< HEAD
+
+        <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:5}}>{length2} Other Channels</Text>
+        <View>
+        {channels!=null && channels.filter((channel) => channel.unread==="false").map((channel) => (
+=======
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:5}}>{length2} Other Channels</Text>
         <View>
         {mock_data.category.channel.filter((channel) => channel.unread===false).map((channel) => (
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
           <Link href={{pathname:"/chat/[room]",params:{room:channel.name}}}  key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
 
               {channel.public==="public" && <Ionicons name='earth-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
@@ -115,6 +194,10 @@ const Page1 = () => {
           </Link>
         ))}
         </View>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         </ScrollView>
       </SafeAreaView>
   )

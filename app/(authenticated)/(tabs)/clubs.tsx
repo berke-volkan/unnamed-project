@@ -1,10 +1,22 @@
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
+<<<<<<< HEAD
+import React, { useEffect } from 'react'
+import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
+import {  ScrollView } from 'react-native-gesture-handler'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useRouter } from 'expo-router'
+import { firebaseConfig } from '@/firebaseConfig'
+import { getDatabase, onValue, ref,update } from "firebase/database";
+import { initializeApp } from 'firebase/app'
+
+=======
 import React from 'react'
 import { StyleSheet, View, Text,StatusBar, TouchableOpacity} from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_data = [
   {
     id: '1',
@@ -220,26 +232,97 @@ const mock_teams_Data = [
 
 const Page = () => {
   const router = useRouter()
+<<<<<<< HEAD
+  const [clubs,setClubs] = React.useState<{name:string,desc:string,school:string,notMember:string,memberCount:number,memberLimit:number,howToJoin:string}[]>([]);
+  let clubNames: string[] = [];
+  const app = initializeApp(firebaseConfig);
+  const db=getDatabase(app);;
+  let clubCount = clubs.filter((club) => club.notMember === "false").length; // Count clubs where notMember is "false"
+
+
+  const getClubs = () => {
+    const ClubsRef = ref(db, 'clubs');
+
+    onValue(ClubsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            clubNames.push(childSnapshot.key as string);
+          });
+          
+          clubNames.forEach((clubName) => {
+            const clublRef = ref(db, `clubs/${clubName}`);
+            onValue(clublRef, (childSnapshot) => {
+              const data = childSnapshot.val();
+              if (data) {
+                setClubs((prevClubs) => [
+                  ...prevClubs,
+                  {
+                    name: clubName,
+                    desc: data.desc || "No description available",
+                    school: data.school || "Unknown",
+                    howToJoin: data.howToJoin || "open to all",
+                    memberCount: data.memberCount || 0,
+                    notMember: data.notMember || true,
+                    memberLimit: data.memberLimit || 10,
+                  }
+                ]);
+              }
+            });
+          });
+
+
+          } else {
+          console.log("No data available at /chat");
+}
+    }
+  
+  );
+  }
+
+  useEffect(()=>{
+    getClubs()
+    console.log(clubs)
+  },[])
+
+=======
   let clubCount = mock_data.filter((item) => !item.notMember).length;
 
 
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   const joinClub = (clubName:string) => {
     console.log(`Joining ${clubName}...`);
     if (clubCount===5) {
       alert("You can only join 5 clubs at a time")
       return
     }else{
+<<<<<<< HEAD
+      clubs.map((item) => {
+        if (item.name === clubName) {
+          item.notMember = "false";
+          item.memberCount += 1;
+          clubCount += 1;
+          
+                  update(ref(db, `clubs/${clubName}`), {
+          notMember: item.notMember,
+          memberCount: item.memberCount,
+          memberLimit: item.memberLimit,
+        })
+=======
       mock_data.map((item) => {
         if (item.name === clubName) {
           item.notMember = false;
           item.memberCount += 1;
           clubCount += 1;
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         }
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
 
+<<<<<<< HEAD
+=======
     // TODO: Integrate with Clerk Orgamizations
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   }
   const leaveFromClub = (clubName:string) => {
     console.log(`Leaving ${clubName}...`);
@@ -247,12 +330,18 @@ const Page = () => {
       alert("You are not a member of any club")
       return
     }else{
-      mock_data.map((item) => {
+      clubs.map((item) => {
         if (item.name === clubName) {
-          item.notMember = true;
+          item.notMember = "true";
           item.memberCount -= 1;
           clubCount -= 1;
+                  update(ref(db, `clubs/${clubName}`), {
+          notMember: item.notMember,
+          memberCount: item.memberCount,
+          memberLimit: item.memberLimit,
+        })
         }
+
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
@@ -273,9 +362,9 @@ const Page = () => {
           İçinde bulunduğun kulüpler ({clubCount}/5):
         </Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
-        {mock_data.map((item,index)=>(
+        {clubs.map((item,index)=>(
             <View key={index}>
-            {(!item.notMember) && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
+            {(item.notMember)==="false" && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
               <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
               <Text style={styles.clubText}>{item.name}</Text>
               <Text style={styles.clubDescText}>{item.desc}</Text>
@@ -299,9 +388,9 @@ const Page = () => {
           <Text style={{fontWeight:700,fontSize:25,width:"100%",marginLeft:5}}>Katılacak bir kulüp bul ({5-clubCount}/5):</Text>
 
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
-          {mock_data.map((item,index)=>(
+          {clubs.map((item,index)=>(
             <View key={index}>
-              {(item.notMember) && (
+              {(item.notMember==="true") && (
               <View style={styles.clubs} >
                 <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
                 <Text style={styles.clubText}>{item.name}</Text>

@@ -11,7 +11,6 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
-import { ScrollView } from 'react-native-gesture-handler'
 const mock_project_data=[
   {
     id:1,
@@ -46,36 +45,50 @@ const mock_project_data=[
     roles:["Backend Developer","Content Creator","UX Researcher"],
   }
 ]
-const project = () => {
-  return (
-    <ScrollView>
-      <View>
-        {mock_project_data.map((project) => (
-          <TouchableOpacity key={project.id} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
-          <Image source={{uri:project.image}} style={{width:"100%",height:200,borderRadius:5}} />
-          <View style={{flexDirection:"column"}}>
-          <Text style={{fontSize:26,paddingLeft:10,fontWeight:"bold",textAlign:"center"}}>{project.title}</Text>
-          <Text style={{fontSize:14,paddingLeft:10}}>{project.desc}</Text>
-          <Text style={{fontSize:14,paddingLeft:10,fontWeight:"bold"}}>Tags:</Text>
-          <View style={{flexDirection:"row"}}> 
-            {project.tags.map((tag,index)=>(
-              <View key={index} style={{backgroundColor:Colors.primary,width:"30%",borderRadius:5,marginRight:5}}>
-              <Text style={{fontSize:14,paddingLeft:10,color:Colors.primaryMuted}}>{tag}</Text>
-              </View>
-            ))}
-          </View>
-          <Text style={{fontSize:14,paddingLeft:10,fontWeight:"bold"}}>Roles:</Text>
-            {project.roles.map((role,index)=>(
-              <View key={index} >
-              <Text style={{fontSize:14,paddingLeft:10,color:"black"}}>- {role}</Text>
-              </View>
-            ))}
-          </View>
-          </TouchableOpacity>
-        ))}
 
-      </View>
-    </ScrollView>
+const project = () => {
+  let choosen: any[]=[]
+  let [choosenNow, setChoosen] = React.useState(0)
+  let selectRandom = function (arr: any[]) {
+    let randomIndex = Math.floor(Math.random() * arr.length);
+    if (choosen.includes(arr[randomIndex])) {
+      return selectRandom(arr);
+    }else{
+      choosen.push(arr[randomIndex])
+      setChoosen(randomIndex)
+      return arr[randomIndex];
+    }
+  }
+
+  return (
+    <View style={{alignItems:"center"}}>
+      <View style={{backgroundColor:Colors.primaryMuted,width:"90%",alignSelf:"center",borderRadius:5,height:650}}> 
+        <Image source={{uri:mock_project_data[choosenNow].image}} style={{width:"100%",height:200,borderTopLeftRadius:5,borderTopRightRadius:5}}/>
+        <Text style={{textAlign:"center",fontWeight:"bold",fontSize:25}}>{mock_project_data[choosenNow].title} </Text>
+        <View>
+          <Text style={{textAlign:"center",paddingLeft:5,paddingRight:5}}>{mock_project_data[choosenNow].desc}</Text>
+        </View>
+        <Text style={{fontWeight:"bold",marginLeft:5,marginTop:5,marginBottom:5}}>Tags</Text>
+        <View style={{flexDirection:"row",paddingBottom:5}}>
+        {mock_project_data[choosenNow].tags.map((tag, index) => (
+          <View key={index} style={{backgroundColor:Colors.primary,borderRadius:5,width:"30%",marginLeft:5}}>
+            <Text style={{color:"white"}}>{tag}</Text>
+          </View>
+        ))}
+        </View>     
+        <Text style={{fontWeight:"bold",marginLeft:5,marginTop:5,marginBottom:5}}>Roles</Text>
+        {mock_project_data[choosenNow].roles.map((role, index) => (
+          <TouchableOpacity key={index} style={{backgroundColor:Colors.primary,borderRadius:5,width:"60%",marginLeft:65,marginRight:5,marginBottom:15}}>
+            <Text style={{textAlign:"center",color:"white"}}>Apply for {role}</Text>
+          </TouchableOpacity>
+        )
+        )}
+          <TouchableOpacity style={{backgroundColor:Colors.primary,borderRadius:5,width:"60%",marginLeft:65,marginRight:5,marginBottom:15,alignItems:"center"}} onPress={()=>selectRandom(mock_project_data)}>
+            <Ionicons name='refresh-outline' size={24} color={"white"} />
+            <Text style={{textAlign:"center",color:"white",textAlignVertical:"center"}}>Pass this project</Text>
+          </TouchableOpacity>
+    </View>
+    </View>
   )
 }
 

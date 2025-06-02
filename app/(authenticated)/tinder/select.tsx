@@ -1,8 +1,12 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Link, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { ScrollView } from 'react-native-gesture-handler'
+
 const mock_data = [
   {
     id:1,
@@ -21,9 +25,9 @@ const mock_data = [
   {
     id:3,
     name:"Find a Tutor",
-    url:"/tinder/tutors",
+    url:"/tinder/tutor",
     desc:"Find a tutor in your area",
-    icon:<Ionicons name="people" size={36} color="black" />,
+    icon:<FontAwesome6 name="graduation-cap" size={36} color="black" />
   },
 
   {
@@ -31,14 +35,14 @@ const mock_data = [
     name:"Find a Internship",
     url:"/tinder/internship",
     desc:"Find a internship in your area",
-    icon:<Ionicons name="people" size={36} color="black" />,
+    icon:<AntDesign name="star" size={36} color="black" />
   },
   {
     id:5,
     name:"Find a Summer Program",
     url:"/tinder/summer",
     desc:"Find a summer program in your area",
-    icon:<Ionicons name="people" size={36} color="black" />,
+    icon:<Ionicons name="sunny-outline" size={36} color="black" />,
   },
   {
     id:6,
@@ -51,7 +55,11 @@ const mock_data = [
 const page = () => {
   const router=useRouter()
   return (
+<<<<<<< HEAD
+    <ScrollView>
+=======
     <View>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       <View>
         {mock_data.map((select) => (
           <TouchableOpacity key={select.id} onPress={()=>router.push(select.url as any)} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
@@ -63,7 +71,11 @@ const page = () => {
           </TouchableOpacity>
         ))}
         </View>
+<<<<<<< HEAD
+    </ScrollView>
+=======
     </View>
+>>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   )
 }
 

@@ -24,10 +24,11 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-
+import { useSignIn } from '@clerk/clerk-expo'
 const CELL_COUNT = 6;
 
 const EmailVerification = () => {
+  const {signIn} = useSignIn()
   const { isLoaded, signUp, setActive } = useSignUp()
   const { email } = useLocalSearchParams<{ email: string }>()
   const [code, setCode] = React.useState('')
@@ -38,22 +39,22 @@ const EmailVerification = () => {
     value: code,
     setValue: setCode,
   })
-
-
-
+  
   useEffect(() => {
     if (code.length === CELL_COUNT) {
-      handleVerification();
+      handleVerification()
     }
-  }, [code]);
+  }, [code])
 
   const handleVerification = async () => {
     if (!isLoaded || !signUp) return;
 
     try {
+
       const signUpAttempt = await signUp.attemptEmailAddressVerification({
         code,
       });
+      
 
       if (signUpAttempt.status === 'complete') {
         await setActive({ session: signUpAttempt.createdSessionId });
