@@ -330,7 +330,6 @@ const Page = () => {
       alert("You are not a member of any club")
       return
     }else{
-<<<<<<< HEAD
       clubs.map((item) => {
         if (item.name === clubName) {
           item.notMember = "true";
@@ -343,14 +342,6 @@ const Page = () => {
         })
         }
 
-=======
-      mock_data.map((item) => {
-        if (item.name === clubName) {
-          item.notMember = true;
-          item.memberCount -= 1;
-          clubCount -= 1;
-        }
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
       });
       alert(`You have joined ${clubName},${clubCount}`)
     }
@@ -371,15 +362,9 @@ const Page = () => {
           İçinde bulunduğun kulüpler ({clubCount}/5):
         </Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
-<<<<<<< HEAD
         {clubs.map((item,index)=>(
             <View key={index}>
             {(item.notMember)==="false" && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
-=======
-        {mock_data.map((item,index)=>(
-            <View key={index}>
-            {(!item.notMember) && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
               <Text style={styles.clubText}>{item.name}</Text>
               <Text style={styles.clubDescText}>{item.desc}</Text>
@@ -403,15 +388,9 @@ const Page = () => {
           <Text style={{fontWeight:700,fontSize:25,width:"100%",marginLeft:5}}>Katılacak bir kulüp bul ({5-clubCount}/5):</Text>
 
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
-<<<<<<< HEAD
           {clubs.map((item,index)=>(
             <View key={index}>
               {(item.notMember==="true") && (
-=======
-          {mock_data.map((item,index)=>(
-            <View key={index}>
-              {(item.notMember) && (
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
               <View style={styles.clubs} >
                 <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
                 <Text style={styles.clubText}>{item.name}</Text>

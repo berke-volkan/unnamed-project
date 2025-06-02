@@ -1,20 +1,11 @@
 {
   "expo": {
-<<<<<<< HEAD
     "name": "neighborhood-2",
     "slug": "neighborhood-2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "neighborhood2",
-=======
-    "name": "project",
-    "slug": "project",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "project",
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -31,11 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-<<<<<<< HEAD
       "package": "com.kzlpndx.neighborhood2"
-=======
-      "package": "com.kzlpndx.project"
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     },
     "web": {
       "bundler": "metro",
@@ -43,25 +30,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-<<<<<<< HEAD
       "expo-router"
-=======
-      "expo-router",
-      [
-        "expo-dynamic-app-icon",
-        {
-          "icon1": {
-            "image": "./assets/icon1.png",
-            "prerendered": true
-          },
-          "icon2": {
-            "image": "./assets/icon2.png",
-            "prerendered": true
-          }
-        }
-      ],
-      "expo-web-browser"
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     ],
     "experiments": {
       "typedRoutes": true

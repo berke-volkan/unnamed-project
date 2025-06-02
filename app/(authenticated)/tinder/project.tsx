@@ -11,11 +11,6 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
-<<<<<<< HEAD
-
-=======
-import { ScrollView } from 'react-native-gesture-handler'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 const mock_project_data=[
   {
     id:1,
@@ -50,7 +45,6 @@ const mock_project_data=[
     roles:["Backend Developer","Content Creator","UX Researcher"],
   }
 ]
-<<<<<<< HEAD
 
 const project = () => {
   let choosen: any[]=[]
@@ -95,38 +89,6 @@ const project = () => {
           </TouchableOpacity>
     </View>
     </View>
-=======
-const project = () => {
-  return (
-    <ScrollView>
-      <View>
-        {mock_project_data.map((project) => (
-          <TouchableOpacity key={project.id} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
-          <Image source={{uri:project.image}} style={{width:"100%",height:200,borderRadius:5}} />
-          <View style={{flexDirection:"column"}}>
-          <Text style={{fontSize:26,paddingLeft:10,fontWeight:"bold",textAlign:"center"}}>{project.title}</Text>
-          <Text style={{fontSize:14,paddingLeft:10}}>{project.desc}</Text>
-          <Text style={{fontSize:14,paddingLeft:10,fontWeight:"bold"}}>Tags:</Text>
-          <View style={{flexDirection:"row"}}> 
-            {project.tags.map((tag,index)=>(
-              <View key={index} style={{backgroundColor:Colors.primary,width:"30%",borderRadius:5,marginRight:5}}>
-              <Text style={{fontSize:14,paddingLeft:10,color:Colors.primaryMuted}}>{tag}</Text>
-              </View>
-            ))}
-          </View>
-          <Text style={{fontSize:14,paddingLeft:10,fontWeight:"bold"}}>Roles:</Text>
-            {project.roles.map((role,index)=>(
-              <View key={index} >
-              <Text style={{fontSize:14,paddingLeft:10,color:"black"}}>- {role}</Text>
-              </View>
-            ))}
-          </View>
-          </TouchableOpacity>
-        ))}
-
-      </View>
-    </ScrollView>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   )
 }
 

@@ -225,7 +225,6 @@ const InitialLayout = () => {
             backgroundColor: Colors.background,
           }
         }}/>
-<<<<<<< HEAD
         <Stack.Screen
         name="(authenticated)/perks/claim/[perk]"
         options={{
@@ -314,8 +313,6 @@ const InitialLayout = () => {
           }
           
         }}/>
-=======
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
     </Stack>
   );
 };

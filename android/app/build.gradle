@@ -87,15 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-<<<<<<< HEAD
     namespace 'com.kzlpndx.neighborhood2'
     defaultConfig {
         applicationId 'com.kzlpndx.neighborhood2'
-=======
-    namespace 'com.kzlpndx.project'
-    defaultConfig {
-        applicationId 'com.kzlpndx.project'
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

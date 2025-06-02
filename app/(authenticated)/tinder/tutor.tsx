@@ -1,6 +1,5 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-<<<<<<< HEAD
 import { TouchableOpacity
  } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
@@ -71,14 +70,6 @@ const tutor = () => {
         </TouchableOpacity>
       ))}
     </ScrollView>
-=======
-
-const tutor = () => {
-  return (
-    <View>
-        <Text>ASAP</Text>
-    </View>
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
   )
 }
 

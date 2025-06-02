@@ -13,9 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-<<<<<<< HEAD
   ]
-=======
-, "app/(authenticated)/(tabs)/pomodoro.tsx"  ]
->>>>>>> 37aa45639aab9fd2fd2e72e301ab301e768bc043
 }
