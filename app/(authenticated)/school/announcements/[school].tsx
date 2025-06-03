@@ -120,7 +120,7 @@ const announcements = () => {
   const [announcements, setannouncements] = React.useState<{id:string,name:string,desc:string,author:string,date:string}[]>([]);
   let announcementNames: string[] = [];
   const getannouncements = () => {
-    const announcementsRef = ref(db, 'chat');
+    const announcementsRef = ref(db, 'announcements');
 
     onValue(announcementsRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -129,7 +129,7 @@ const announcements = () => {
           });
           
           announcementNames.forEach((announcementName) => {
-            const announcementRef = ref(db, `chat/${announcementName}`);
+            const announcementRef = ref(db, `announcements/${announcementName}`);
             onValue(announcementRef, (childSnapshot) => {
               const data = childSnapshot.val();
               if (data) {

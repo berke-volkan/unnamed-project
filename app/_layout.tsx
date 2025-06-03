@@ -313,6 +313,17 @@ const InitialLayout = () => {
           }
           
         }}/>
+        <Stack.Screen
+        name="(authenticated)/system_msg/render"
+        options={{
+          title: 'System Msgs ',
+          headerBackTitle: '',
+          headerShadowVisible: false,
+          headerStyle:{
+            backgroundColor: Colors.background,
+          }
+          
+        }}/>
     </Stack>
   );
 };
