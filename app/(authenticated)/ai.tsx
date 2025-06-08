@@ -11,19 +11,23 @@ import {firebaseConfig} from "@/firebaseConfig"
 import { initializeApp } from 'firebase/app'
 import { useUser } from '@clerk/clerk-expo'
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import Markdown from 'react-native-markdown-display';
+import Config from "react-native-config";
+import Markdown from 'react-native-markdown-display'
+type Message = {
+    message: any;
+    sender: string;
+};
 
-
+const API_KEY = "AIzaSyCWNu4SM_Kha2oyP1SnN3gdvl7DHwoefrQ"
 
 const chatroom = () => {
-  const [msgList,setMsgList]=React.useState<any[]>([])
+  const [msgList, setMsgList] = React.useState<Message[]>([]);
   const app = initializeApp(firebaseConfig);
   const db=getDatabase(app);
   const room= useLocalSearchParams<{room:string}>()
   const router=useRouter()
   const [msg,setMsg]=React.useState<string>("")
   const [desc,setDesc]=React.useState<string>("")
-  const API_KEY:any="AIzaSyCWNu4SM_Kha2oyP1SnN3gdvl7DHwoefrQ"
   const genAı=new GoogleGenerativeAI(API_KEY)
   const [aiResp,setAiResp]=React.useState<any>("")
 
@@ -34,80 +38,34 @@ const aiResponse = async (prompt: string): Promise<string> => {
   return text;
 };
 
+const sendMessage = async (msg: string) => {
+  setMsgList(prev => [
+    ...prev,
+    {
+      message: msg,
+      sender: "Me"
+    }
+  ]);
+
+  const ai = await aiResponse(msg);
+
+  setMsgList(prev => [
+    ...prev,
+    {
+      message: ai,
+      sender: "Ai"
+    }
+  ]);
+};
+
+
 
   const {user} = useUser()
-
-
-  useEffect(()=>{
-    loadMessages()
-    channelDesc()
-  },[])
-
-
-async function sendMessage(message: string) {
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const sender = user?.fullName;
-  const avatarUrl = user?.imageUrl;
-
-  // Send user message
-  await push(ref(db, `chat/${room.room}/messages/`), {
-    sender,
-    message,
-    time,
-    pp: avatarUrl
-  });
-
-  if (message.includes("@ai")) {
-    const aiText = await aiResponse(message);
-    await push(ref(db, `chat/${room.room}/messages/`), {
-      sender: "AI",
-      message: aiText,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      pp: "https://cdn-icons-png.flaticon.com/512/4712/4712100.png" // AI avatar
-    });
-  }
-
-  setMsg(""); // Clear input
-  loadMessages(); // Optionally reload
-}
-
-
-
-  function loadMessages(){
-    const msgRef=ref(db,"chat/"+room.room+"/messages/")
-    onValue(msgRef, (snapshot: DataSnapshot) => {
-      const data=snapshot.val();
-      if (data){
-        const messages=Object.values(data);
-        setMsgList(messages)
-      }
-    })
-  }
-  function channelDesc(){
-    const channelRef=ref(db,"chat/"+room.room+"/desc/")
-    onValue(channelRef, (snapshot: DataSnapshot) => {
-      const data=snapshot.val();
-      if (data){
-        setDesc(data)
-      }
-    })
-  }
-  
   return (
     <SafeAreaView>
     <ScrollView>
-      <View style={styles.topbar}> {/* Fix Size*/}
-          <TouchableOpacity onPress={()=>{router.push("/(authenticated)/(tabs)/chat")}}>
-              <Ionicons name="arrow-back" size={34} color={Colors.dark} />
-          </TouchableOpacity>
-        <View style={{flexDirection:"column"}}>
-         <Text style={styles.topbarText}>{room.room}</Text>
-         <Text>{desc}</Text>
-        </View>
-
-        </View>
         <View style={{flexDirection:"column",alignItems:"center"}}>
-        {msgList.length!==0 && msgList.map((item,index)=>(
+        {msgList.length!==0 && msgList.map((item:any,index:any)=>(
 <View
   key={index}
   style={{
@@ -122,7 +80,12 @@ async function sendMessage(message: string) {
   }}
 >
   <Image
-    source={{ uri: item.pp }}
+      source={{
+    uri: item.sender === "Ai"
+  ? "https://cdn-icons-png.flaticon.com/512/4712/4712100.png"
+  : user?.imageUrl ?? "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+
+  }}
     style={{ width: 40, height: 40, borderRadius: 20, marginLeft: 10 }}
   />
 
@@ -146,9 +109,18 @@ async function sendMessage(message: string) {
           <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:40,alignItems:"center",marginLeft:5}}>
             <Ionicons name='document-attach-outline'  color={Colors.primary} style={{margin:10}} size={22}/>
           </TouchableOpacity>
-          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:40,alignItems:"center",marginLeft:5}} onPress={()=>(sendMessage(msg),setMsg(""))}>
-            <Ionicons name='send'  color={Colors.primary} style={{margin:10}} size={22}/>
-          </TouchableOpacity>
+<TouchableOpacity
+  style={{ backgroundColor: Colors.primaryMuted, borderRadius: 30, height: 40, width: 40, alignItems: "center", marginLeft: 5 }}
+  onPress={async () => {
+    if (typeof msg === 'string' && msg.trim() !== "") {
+      await sendMessage(msg.trim());
+      setMsg("");
+    }
+  }}
+>
+  <Ionicons name='send' color={Colors.primary} style={{ margin: 10 }} size={22} />
+</TouchableOpacity>
+
         </View>
     </ScrollView>
     </SafeAreaView>

@@ -147,8 +147,19 @@ const Page1 = () => {
 
 
          <View style={{flexDirection:"row"}}>
-              <Ionicons name='home-outline' size={60} color={"black"} style={{padding:8,alignSelf:"center"}} />
+              <Ionicons name='home-outline' size={60} color={Colors.primary} style={{padding:8,alignSelf:"center"}} />
               <Text style={{textAlign:"center",width:"55%",fontWeight:"bold",fontSize:25,textAlignVertical:"center"}}>{school}</Text>
+          </View>
+
+        </TouchableOpacity>
+        
+        <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:3,marginBottom:2}}>Chat With AI</Text>
+        <TouchableOpacity  style={{backgroundColor:Colors.primaryMuted,width:"90%",marginLeft:"5%",borderRadius:15,marginBottom:"5%"}}  onPress={()=>(router.push({pathname:"/(authenticated)/ai"}))} >
+
+
+         <View style={{flexDirection:"row"}}>
+              <Ionicons name='rocket-outline' size={60} color={Colors.primary}  style={{padding:8,alignSelf:"center"}} />
+              <Text style={{textAlign:"center",width:"55%",fontWeight:"bold",fontSize:25,textAlignVertical:"center"}}>AI</Text>
           </View>
 
         </TouchableOpacity>
