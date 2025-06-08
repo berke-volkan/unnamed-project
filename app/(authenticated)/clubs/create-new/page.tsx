@@ -27,6 +27,13 @@ const createclub = () => {
       school:school,
       pub:pub,
     })
+    const systemref=ref(db,"system_msg")
+    push(systemref,{
+        title:"We got your club submission!",
+        desc:"Hey! We got your club submission.Thank for joining our family! Club Name:"+clubname,
+        type:"club_submission"
+    
+    })
     
   }
 

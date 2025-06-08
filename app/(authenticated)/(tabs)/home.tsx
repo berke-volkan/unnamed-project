@@ -1,4 +1,5 @@
 import Colors from '@/constants/Colors'
+import { useUser } from '@clerk/clerk-expo'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
@@ -33,12 +34,13 @@ const home_data=[
 
 ]
 const Page = () => {
+  const { user } = useUser()
   const router = useRouter()
-  const name="John Doe"
+  const name=user?.fullName
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>
         <TouchableOpacity onPress={()=>(router.push("/(authenticated)/(tabs)/setting"))}>
-        <Image style={{marginLeft:"40%"}} src='https://i.pinimg.com/736x/27/2c/3c/272c3c10cbe4dce87e86c20bf4d4cffa.jpg' width={90} height={90} borderRadius={15} blurRadius={25}/>
+        <Image style={{marginLeft:"40%"}} src={user?.imageUrl} width={90} height={90} borderRadius={15} blurRadius={25}/>
         </TouchableOpacity>
 
         <Text style={styles.welcome}>

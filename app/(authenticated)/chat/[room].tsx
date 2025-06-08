@@ -9,6 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { getDatabase, push, ref, set, onValue, DataSnapshot } from "firebase/database";
 import {firebaseConfig} from "@/firebaseConfig"
 import { initializeApp } from 'firebase/app'
+import { useUser } from '@clerk/clerk-expo'
 
 
 
@@ -23,6 +24,9 @@ const chatroom = () => {
   const [msg,setMsg]=React.useState<string>("")
   const [desc,setDesc]=React.useState<string>("")
 
+  const {user} = useUser()
+
+
   useEffect(()=>{
     loadMessages()
     channelDesc()
@@ -31,8 +35,8 @@ const chatroom = () => {
 
   function sendMessage(message:string){
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const sender="Me"
-    const avatarUrl="https://tse3.mm.bing.net/th/id/OIP.uZNaclDlVylNL-bP4iQmSAHaH5?r=0&rs=1&pid=ImgDetMain"
+    const sender=user?.fullName
+    const avatarUrl=user?.imageUrl
   push(ref(db,"chat/"+room.room+"/messages/"), {
     sender: sender,
     message: message,

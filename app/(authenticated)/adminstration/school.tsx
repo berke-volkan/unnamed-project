@@ -79,36 +79,7 @@ const school = () => {
                 {student.status==="suspended" && <View style={{width:8,height:8,borderRadius:44/2,backgroundColor:"red",marginTop:20,marginLeft:2}}></View>}
                 {student.status==="inactive" && <View style={{width:8,height:8,borderRadius:44/2,backgroundColor:"orange",marginTop:20,marginLeft:2}}></View>}
                 <Text style={{marginTop:15,marginLeft:5}}> | ({student.grade})</Text>
-                {
-                /* TODO: FIX
-                {student.attendance<=50 &&
-                    <View style={{width:10,height:10,borderRadius:44/2,backgroundColor:"red"}}>
-                        <Text>
-                            %{student.attendance}
-                        </Text>
-                    </View>
-                }
-                {75>=student.attendance && student.attendance>50 &&
-                    <View style={{width:5,height:5,borderRadius:44/2,backgroundColor:"orange"}}>
-                        <Text>
-                            %{student.attendance}
-                        </Text>
-                    </View>
-                }
-                {100>=student.attendance && student.attendance>75 &&
-                    <View style={{width:5,height:5,borderRadius:44/2,backgroundColor:"greem"}}>
-                        <Text>
-                            %{student.attendance}
-                        </Text>
-                    </View>
-                }
-                */
-                }
-                <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:15,height:25,width:150,marginTop:15,marginLeft:15}}>
-                    <Text style={{textAlign:"center",fontSize:12,marginTop:5}}>{student.email}</Text>
-                </TouchableOpacity>
                 </View>
-
             </View>
         ))}
         <Text style={{fontWeight:"bold",fontSize:19,marginLeft:10,textAlign:"center"}}>Analytics</Text>

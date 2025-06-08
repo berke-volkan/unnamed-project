@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Ionicons } from '@expo/vector-icons'
 import Colors from '@/constants/Colors'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig'
-import { getDatabase, ref } from 'firebase/database'
-
+import { DataSnapshot, getDatabase, ref } from 'firebase/database'
+import { onValue } from 'firebase/database'
 const mock_sys=[
   {
     title:"You got a warning!",
@@ -28,10 +28,24 @@ const mock_sys=[
 const system = () => {
   const app=initializeApp(firebaseConfig)
   const db=getDatabase(app)
-  const reff=ref(db,"system_msg")
+  let sys: string[] = [];
+  function loadSysMessages(){
+      const reff=ref(db,"system_msg")
+      onValue(reff, (snapshot: DataSnapshot) => {
+        const data=snapshot.val();
+        if (data){
+          console.log(data)
+          sys.push(data)
+          console.log(sys)
+        }
+      })
+    }
+  useEffect(()=>{
+    loadSysMessages()
+  },[])
   return (
     <View>
-        {mock_sys.map((item,index)=>(
+        {sys.map((item:any)=>(
           <View>
             <View style={{backgroundColor:Colors.primaryMuted}}>
                 <View style={{flexDirection:"row",marginTop:5}}>

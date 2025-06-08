@@ -1,20 +1,14 @@
 import Colors from '@/constants/Colors'
 import { defaultStyles } from '@/constants/Styles'
-import { useSignUp } from '@clerk/clerk-expo'
-
-import { 
-  Link, 
-  useLocalSearchParams, 
-  useRouter 
-} from 'expo-router'
+import { firebaseConfig } from '@/firebaseConfig'
+import { initializeApp } from 'firebase/app'
+import { getDatabase } from 'firebase/database'
 
 import React, { Fragment, useEffect } from 'react'
 
 import { 
-  Alert, 
   StyleSheet, 
   Text, 
-  TouchableOpacity, 
   View 
 } from 'react-native'
 
@@ -24,15 +18,16 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
-import { useSignIn } from '@clerk/clerk-expo'
+import { useRouter } from 'expo-router'
+
 const CELL_COUNT = 6;
 
 const EmailVerification = () => {
-  const {signIn} = useSignIn()
-  const { isLoaded, signUp, setActive } = useSignUp()
-  const { email } = useLocalSearchParams<{ email: string }>()
-  const [code, setCode] = React.useState('')
+  const app = initializeApp(firebaseConfig)
+  const db=getDatabase(app)
   const router = useRouter()
+
+  const [code, setCode] = React.useState('')
 
   const ref = useBlurOnFulfill({ value: code, cellCount: CELL_COUNT })
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -47,27 +42,8 @@ const EmailVerification = () => {
   }, [code])
 
   const handleVerification = async () => {
-    if (!isLoaded || !signUp) return;
-
-    try {
-
-      const signUpAttempt = await signUp.attemptEmailAddressVerification({
-        code,
-      });
-      
-
-      if (signUpAttempt.status === 'complete') {
-                await setActive({ session: signUpAttempt.createdSessionId });
-
- 
-      } else {
-        console.error('Verification incomplete:', signUpAttempt);
-        Alert.alert('Error', 'Verification incomplete');
-      }
-    } catch (err) {
-      console.error('Error verifying:', err);
-      Alert.alert('Error', 'Invalid verification code');
-      setCode('');
+    if(code.toLowerCase()==="111111"){
+        router.push("/signup")
     }
   };
 
@@ -75,15 +51,8 @@ const EmailVerification = () => {
     <View style={defaultStyles.container}>
       <Text style={defaultStyles.header}>6-digit code</Text>
       <Text style={defaultStyles.descriptionText}>
-        Code sent to {email}
+        Hey! As our platform is only available for verified high schoolers we require a verification.You can get a verification code from your school!
       </Text>
-      
-      <Link href="/login" asChild replace>
-        <TouchableOpacity>
-          <Text style={defaultStyles.textLink}>Already have an account? Log in</Text>
-        </TouchableOpacity>
-      </Link>
-
       <CodeField
         ref={ref}
         {...props}

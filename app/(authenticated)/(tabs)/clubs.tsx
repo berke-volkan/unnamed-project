@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router'
 import { firebaseConfig } from '@/firebaseConfig'
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
+import { useUser } from '@clerk/clerk-expo'
 
 const mock_data = [
   {
@@ -224,12 +225,13 @@ const mock_teams_Data = [
 
 const Page = () => {
   const router = useRouter()
-  const [clubs,setClubs] = React.useState<{name:string,desc:string,school:string,notMember:string,memberCount:number,memberLimit:number,howToJoin:string}[]>([]);
+  const [clubs,setClubs] = React.useState<{name:string,desc:string,school:string,notMember:string[],memberCount:number,memberLimit:number,howToJoin:string}[]>([]);
   let clubNames: string[] = [];
   const app = initializeApp(firebaseConfig);
   const db=getDatabase(app);;
-  let clubCount = clubs.filter((club) => club.notMember === "false").length; // Count clubs where notMember is "false"
-
+    const {user}=useUser( )
+  const uid=user?.id
+  let clubCount = clubs.filter((club) => club && club.notMember.includes("user_2y5UQJGo4TQTTyU1u1tLyIVfm5l")).length; // Count clubs where notMember is "false"
 
   const getClubs = () => {
     const ClubsRef = ref(db, 'clubs');
@@ -253,7 +255,7 @@ const Page = () => {
                     school: data.school || "Unknown",
                     howToJoin: data.howToJoin || "open to all",
                     memberCount: data.memberCount || 0,
-                    notMember: data.notMember || true,
+                    notMember: Array.isArray(data.members) ? data.members : [],
                     memberLimit: data.memberLimit || 10,
                   }
                 ]);
@@ -283,11 +285,10 @@ const Page = () => {
     }else{
       clubs.map((item) => {
         if (item.name === clubName) {
-          item.notMember = "false";
           item.memberCount += 1;
+          item.notMember.push(`${uid}`)
           clubCount += 1;
-          
-                  update(ref(db, `clubs/${clubName}`), {
+          update(ref(db, `clubs/${clubName}`), {
           notMember: item.notMember,
           memberCount: item.memberCount,
           memberLimit: item.memberLimit,
@@ -306,7 +307,7 @@ const Page = () => {
     }else{
       clubs.map((item) => {
         if (item.name === clubName) {
-          item.notMember = "true";
+          item.notMember = [];
           item.memberCount -= 1;
           clubCount -= 1;
                   update(ref(db, `clubs/${clubName}`), {
@@ -317,10 +318,12 @@ const Page = () => {
         }
 
       });
-      alert(`You have joined ${clubName},${clubCount}`)
+      alert(`You have leaved ${clubName},${clubCount}`)
     }
   
   }
+
+
   
 
 
@@ -338,7 +341,7 @@ const Page = () => {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
         {clubs.map((item,index)=>(
             <View key={index}>
-            {(item.notMember)==="false" && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
+            {uid && item.notMember.includes(uid)===true && (item.howToJoin!=="default") && <View style={styles.clubs} key={index}>
               <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
               <Text style={styles.clubText}>{item.name}</Text>
               <Text style={styles.clubDescText}>{item.desc}</Text>
@@ -364,7 +367,7 @@ const Page = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10,width:"100%"}}>
           {clubs.map((item,index)=>(
             <View key={index}>
-              {(item.notMember==="true") && (
+              {uid && item.notMember.includes(uid)===false && (
               <View style={styles.clubs} >
                 <Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",marginTop:"10%"}}/>
                 <Text style={styles.clubText}>{item.name}</Text>

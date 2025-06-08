@@ -34,7 +34,7 @@ const Page = () => {
           </TouchableOpacity>
         </Link>
         <Link
-          href={'/signup'}
+          href={'/verify-code'}
           style={[defaultStyles.pillButton, { flex: 1, backgroundColor: '#fff' }]}
           asChild>
           <TouchableOpacity>

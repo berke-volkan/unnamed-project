@@ -10,6 +10,7 @@ import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig'
 import { ref, onValue } from "firebase/database";
 import { useEffect } from 'react'
+import { useUser } from '@clerk/clerk-expo'
 
 
 const mock_data = {
@@ -135,16 +136,19 @@ const Page1 = () => {
     console.log(channels)
   },[])
 
+  const {user}=useUser()
+  const school:any=user?.publicMetadata["school"]
+
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>
 
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:3,marginBottom:2}}>My School</Text>
-        <TouchableOpacity  style={{backgroundColor:Colors.primaryMuted,width:"90%",marginLeft:"5%",borderRadius:15,marginBottom:"5%"}}  onPress={()=>(router.push({pathname:"/(authenticated)/school/[school]",params:{school:"XYZ"}}))} >
+        <TouchableOpacity  style={{backgroundColor:Colors.primaryMuted,width:"90%",marginLeft:"5%",borderRadius:15,marginBottom:"5%"}}  onPress={()=>(router.push({pathname:"/(authenticated)/school/[school]",params:{school:school}}))} >
 
 
          <View style={{flexDirection:"row"}}>
               <Ionicons name='home-outline' size={60} color={"black"} style={{padding:8,alignSelf:"center"}} />
-              <Text style={{textAlign:"center",width:"55%",fontWeight:"bold",fontSize:25,textAlignVertical:"center"}}>XYZ</Text>
+              <Text style={{textAlign:"center",width:"55%",fontWeight:"bold",fontSize:25,textAlignVertical:"center"}}>{school}</Text>
           </View>
 
         </TouchableOpacity>
@@ -152,7 +156,7 @@ const Page1 = () => {
         <ScrollView>
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5}}>{length} Unread Channel</Text>
         <View>
-        {channels!=null && channels.filter((channel) => channel.unread==="true").map((channel) => (
+        {channels!=null && channels.filter((channel) => channel.unread==="unread").map((channel) => (
           <Link href={{pathname:"/chat/[room]",params:{room:channel.name}}}  key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
               {channel.public==="public" && <Ionicons name='earth-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
               {channel.public==="invitation" && <Ionicons name='link-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}
@@ -167,7 +171,7 @@ const Page1 = () => {
 
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:5}}>{length2} Other Channels</Text>
         <View>
-        {channels!=null && channels.filter((channel) => channel.unread==="false").map((channel) => (
+        {channels!=null && channels.filter((channel) => channel.unread==="read").map((channel) => (
           <Link href={{pathname:"/chat/[room]",params:{room:channel.name}}}  key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
 
               {channel.public==="public" && <Ionicons name='earth-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} />}

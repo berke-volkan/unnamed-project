@@ -3,7 +3,8 @@ import Colors from '@/constants/Colors';
 import { 
   ClerkProvider, 
   SignedIn, 
-  useAuth } from '@clerk/clerk-expo';
+  useAuth, 
+  useUser} from '@clerk/clerk-expo';
 
 import { Ionicons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -60,6 +61,7 @@ const InitialLayout = () => {
   });
   const router = useRouter();
   const { isLoaded, isSignedIn } = useAuth();
+  const {user}=useUser();
   const segments = useSegments();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -77,7 +79,11 @@ const InitialLayout = () => {
     const inAuthGroup= segments[0] === '(authenticated)'
 
     if (isSignedIn && !inAuthGroup) {
-      router.replace('/(authenticated)/(tabs)/home');
+      if(user?.username===null ){
+      router.replace('/(authenticated)/onboard/page');
+      }else{
+        router.replace("/(authenticated)/(tabs)/home")
+      }
     }else if(!SignedIn){
       router.replace('/');
     }

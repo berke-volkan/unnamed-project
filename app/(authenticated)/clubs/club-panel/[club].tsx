@@ -9,6 +9,7 @@ import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig';
+import { useUser } from '@clerk/clerk-expo';
 
 const mock_data = [
   {
@@ -102,13 +103,16 @@ const clubpanel = () => {
   const [classname, setClass] = React.useState<StyleProp<ViewStyle> | undefined>(undefined)
   const app=initializeApp(firebaseConfig)
   const db= getDatabase(app)
+  const {user}=useUser()
+  const user_id=user?.id
 
   let c: string[] = [];
   const [desc,setDesc] = React.useState<any>(null)
   const [memberL,setMemberL]=React.useState<any>()
   const [school,setSchool]=React.useState<any>()
   const [memberC,setMemberC]=React.useState<any>()
-  const [admin,setAdmin]=React.useState<any>()
+  let admin:any[]=[]
+  const [isAdmin,setIsAdmin]=React.useState<any>()
 
   const getClubInfo = () => {
     const ClubsRef = ref(db, 'clubs');
@@ -129,7 +133,7 @@ const clubpanel = () => {
                 setMemberL(data["memberLimit"])
                 setSchool(data["school"])
                 setMemberC(data["memberCount"])
-                setAdmin(data["admin"])
+                admin.push(data["admin"])
               }
             });
             }
@@ -147,8 +151,12 @@ const clubpanel = () => {
 
   useEffect(()=>{
     getClubInfo()
-          if(admin!=="true"){
+    console.log(admin[0])
+    console.log(user_id)
+    console.log(admin[0].includes(user_id))
+    if(admin[0].includes(user_id)===true){
         setClass(styles.class1)
+        setIsAdmin(true)
       }else{
         setClass(styles.class2)
       }
@@ -186,7 +194,7 @@ const clubpanel = () => {
           <TouchableOpacity style={classname}>
         <Ionicons name='images-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
           </TouchableOpacity>
-          {admin==="true" && (
+          {isAdmin===true && (
         <TouchableOpacity style={classname}>
           <Ionicons name='settings-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
         </TouchableOpacity>

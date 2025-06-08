@@ -12,7 +12,7 @@ const mock_data=[
     name:"Announcements",
     desc:"Important Announcements",
     icon:"alert-circle-outline" as const,
-    link:"/school/announcements/[school]"
+    link:`/school/announcements/[school]`
   },
   {
     name:"Events",
@@ -82,15 +82,32 @@ const schoolpanel = () => {
        <Text style={{textAlign:"center",fontWeight:"bold",fontSize:36}}>{school}</Text>
       </Link>
       <Text style={{textAlign:"center",fontSize:20}}>Your place to track everything about school!</Text>
-              {mock_data.map((channel) => (
-                <TouchableOpacity onPress={()=>(router.push(channel.link as any))} key={channel.name} style={{alignItems:"center",padding:10,backgroundColor:Colors.lightGray,marginRight:10,marginLeft:10,borderRadius:5,marginTop:10}}  >
-                    <Ionicons name={channel.icon} size={40} color={Colors.primary} style={{paddingTop:5}} />
-                    <View style={{flexDirection:"column"}}>
-                    <Text style={{fontSize:26,paddingLeft:10}}>{channel.name}</Text>
-                    <Text style={{fontSize:14,paddingLeft:10}}>{channel.desc}</Text>
-                    </View>
-                </TouchableOpacity>
-              ))}
+      {mock_data.map((channel) => (
+  <TouchableOpacity
+    key={channel.name}
+    onPress={() => router.push({ pathname: channel.link as any, params: { school } })}
+    style={{
+      alignItems: "center",
+      padding: 10,
+      backgroundColor: Colors.lightGray,
+      marginHorizontal: 10,
+      borderRadius: 5,
+      marginTop: 10,
+    }}
+  >
+    <Ionicons
+      name={channel.icon}
+      size={40}
+      color={Colors.primary}
+      style={{ paddingTop: 5 }}
+    />
+    <View style={{ flexDirection: "column", alignItems: "center" }}>
+      <Text style={{ fontSize: 26 }}>{channel.name}</Text>
+      <Text style={{ fontSize: 14 }}>{channel.desc}</Text>
+    </View>
+  </TouchableOpacity>
+))}
+
     </ScrollView>
   )
 }
