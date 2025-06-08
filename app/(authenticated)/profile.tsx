@@ -18,6 +18,10 @@ const profile = () => {
     const [newlastName,setlastName] = React.useState<any>("")
 
     const school:any =user?.publicMetadata["school"]
+    const role:any=user?.publicMetadata["isTeacher"]
+    const libScore:any =user?.publicMetadata["libScore"]
+    const libId:any =user?.publicMetadata["libid"]
+
     const changemail=()=>{
       router.push("/(authenticated)/(tabs)/home")
     }
@@ -109,6 +113,9 @@ const profile = () => {
             </View>            
         }
         <Text style={{marginLeft:19,fontSize:23}}>School: {school} </Text> 
+        <Text style={{marginLeft:19,fontSize:23}}>Role:{role === true ? "Teacher" : "Student"} </Text> 
+        <Text style={{marginLeft:19,fontSize:23}}>LibId: {libId}</Text>
+        <Text style={{marginLeft:19,fontSize:23}}>LibScore: {libScore}</Text>
     </View>
   )
 }

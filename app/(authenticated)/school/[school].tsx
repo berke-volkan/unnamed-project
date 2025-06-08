@@ -51,12 +51,6 @@ const mock_data=[
     link:"/school/library/[school]"
   },
   {
-    name:"Schedule",
-    desc:"Class Timetable",
-    icon:"time-outline" as const,
-    link:"/school/schedule/[school]"
-  },
-  {
     name:"Resources",
     desc:"Learning Materials",
     icon:"folder-outline" as const,

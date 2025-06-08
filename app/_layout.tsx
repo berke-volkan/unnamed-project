@@ -23,7 +23,8 @@ import { useEffect } from 'react';
 import { 
   ActivityIndicator, 
   TouchableOpacity, 
-  View 
+  View ,
+  Pressable
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -330,6 +331,13 @@ const InitialLayout = () => {
           }
           
         }}/>
+        <Stack.Screen
+        name="(authenticated)/school/library/[school]"
+        options={{
+          title:"Library",
+          
+        }}
+        />
     </Stack>
   );
 };
