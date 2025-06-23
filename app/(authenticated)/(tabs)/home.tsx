@@ -31,6 +31,12 @@ const home_data=[
     text:"Yeni bir kulübe katıl!",
     url:"/(authenticated)/(tabs)/clubs"
   },
+    {
+    id:5,
+    icon:<Ionicons name="bicycle-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
+    text:"polls!",
+    url:"/(authenticated)/polls"
+  },
 
 ]
 const Page = () => {

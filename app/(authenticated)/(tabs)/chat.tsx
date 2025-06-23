@@ -141,7 +141,7 @@ const Page1 = () => {
 
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>
-
+        <ScrollView>
         <Text style={{fontWeight:"bold",fontSize:24,marginLeft:5,marginTop:3,marginBottom:2}}>My School</Text>
         <TouchableOpacity  style={{backgroundColor:Colors.primaryMuted,width:"90%",marginLeft:"5%",borderRadius:15,marginBottom:"5%"}}  onPress={()=>(router.push({pathname:"/(authenticated)/school/[school]",params:{school:school}}))} >
          <View style={{flexDirection:"row"}}>
@@ -197,6 +197,7 @@ const Page1 = () => {
           </Link>
         ))}
         </View>
+        </ScrollView>
         </ScrollView>
       </SafeAreaView>
   )

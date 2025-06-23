@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig'
-import { getDatabase, ref } from 'firebase/database'
+import { DataSnapshot, getDatabase, onValue, push, ref, remove } from 'firebase/database'
 import Colors from '@/constants/Colors'
-
+import { useUser } from '@clerk/clerk-expo'
 
 const mock=[
   {
@@ -28,24 +28,52 @@ const mock=[
 ]
 
 
+
 const announcements = () => {
   const app=initializeApp(firebaseConfig)
   const db=getDatabase(app)
-  const assigmentRef=ref(db,"assigments")
-  const [mockdata,set]=React.useState<any>()
+  const [data,set]=React.useState<any>()
+  const {user} = useUser()
+  let l;
 
-  React.useEffect(()=>(
-    set(mock)
-  ),[])
+  React.useEffect(() => {
+    console.log(user?.id)
+    const addAssignments = async () => {
+      const assigmentRef=ref(db,'assignments/user_2yuuGJXJf9KNS7f0yvhGsbsWjLf')
+      onValue(assigmentRef, (snapshot: DataSnapshot) => {
+        const data=snapshot.val();
+          if (data){
+              const assignments=Object.values(data);
+              set(assignments)
+              l=assignments.length;
+            }
+          })
+    }
+    addAssignments();
+  },[])
 
+  const removeAssignment = async (id:string) => {
+    const assignmentRef = ref(db, `assignments/user_2yuuGJXJf9KNS7f0yvhGsbsWjLf/${id}`);
+    remove(assignmentRef)
+    }
   return (
     <View>
-      {mockdata && mockdata.map((item:any)=>(
+      {data && data.map((item:any)=>(
         <TouchableOpacity key={item.id} onPress={()=>{
           let id=item.id
-          let mock1=mockdata.filter((item:any) => item.id !==id );
+          let mock1=data.filter((item:any) => item.id !==id );
           set(mock1)
-        }}>
+        const assigmentRef=ref(db,'assignments/user_2yuuGJXJf9KNS7f0yvhGsbsWjLf')
+      onValue(assigmentRef, (snapshot: DataSnapshot) => {
+        const data=snapshot.val();
+        if (data) {
+          const assignments = Object.entries(data);
+          const assignmentToRemove = assignments.find(([key, value]: [string, any]) => value.id === id);
+          if (assignmentToRemove) {
+            removeAssignment(assignmentToRemove[0]);
+          }
+        }
+        })}}>
         <View  style={{backgroundColor:Colors.lightGray,borderRadius:"10%",margin:5}}>
           <Text style={{fontSize:22,textAlign:"center"}}>{item.name}</Text>
           <View style={{flexDirection:"row",marginLeft:5}}>
