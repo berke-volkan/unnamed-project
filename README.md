@@ -21,3 +21,4 @@ A downloadable version will be available as soon as possible.
 - And see the magic
 
 
+![nhbadge](https://img.shields.io/badge/made%20for%20neighborhood-bf8f73?style=for-the-badge&logo=hackclub&logoColor=ffffff)
