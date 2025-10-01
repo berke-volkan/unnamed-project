@@ -1,11 +1,12 @@
 import Colors from '@/constants/Colors'
 import { defaultStyles } from '@/constants/Styles'
-import { useUser } from '@clerk/clerk-expo'
+import { getClerkInstance, useUser } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native' 
 
-const signup = () => {
+
+const Onboard = () => {
     console.log("signup")
   const [username,setusername]=React.useState("")
   const [firstname,setFirstname]=React.useState("")
@@ -23,10 +24,17 @@ const signup = () => {
       firstName:firstname
     }
     )
-        user?.update({
+    user?.update({
       lastName:lastname
-    }
-    )
+    })
+    user?.update({
+      unsafeMetadata:{
+        libid:"lib_!234",
+        school:"Hack School",
+        libScore:"52",
+        isTeacher:true
+      }
+    })
 
     router.push("/(authenticated)/(tabs)/home")
 
@@ -102,4 +110,4 @@ const  Styles = StyleSheet.create({
   }
 })
 
-export default signup
+export default Onboard

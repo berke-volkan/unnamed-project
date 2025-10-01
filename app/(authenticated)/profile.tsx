@@ -17,10 +17,10 @@ const profile = () => {
     const [newfirstName,setfirstName] = React.useState<any>("")
     const [newlastName,setlastName] = React.useState<any>("")
 
-    const school:any =user?.publicMetadata["school"]
-    const role:any=user?.publicMetadata["isTeacher"]
-    const libScore:any =user?.publicMetadata["libScore"]
-    const libId:any =user?.publicMetadata["libid"]
+    const school:any =user?.unsafeMetadata["school"]
+    const role:any=user?.unsafeMetadata["isTeacher"]
+    const libScore:any =user?.unsafeMetadata["libScore"]
+    const libId:any =user?.unsafeMetadata["libid"]
 
     const changemail=()=>{
       router.push("/(authenticated)/(tabs)/home")

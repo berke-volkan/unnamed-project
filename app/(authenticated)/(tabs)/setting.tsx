@@ -24,11 +24,13 @@ const Page4 = () => {
                 }}>
                   <Ionicons name="people-circle-outline" size={40} color={Colors.primary} style={{alignSelf:"center",marginTop:10}}/>
                 </TouchableOpacity>
+         {/*      
         <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,height:60,alignItems:"center",marginTop:24}} onPress={()=>{
           router.push("/(authenticated)/system_msg/render")
-        }}>
+        }}>  
           <Ionicons  name="chatbubble-ellipses" size={40} color={Colors.primary} style={{alignSelf:"center",marginTop:10}}/> 
         </TouchableOpacity>
+        */}
         <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,height:60,alignItems:"center",marginTop:24}} onPress={()=>{
           router.push("/(authenticated)/profile")
         }}>

@@ -91,7 +91,7 @@ const Styles = StyleSheet.create({
     gap: 12,
   },
   cellRoot: {
-    width: 45,
+    width: 35,
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',

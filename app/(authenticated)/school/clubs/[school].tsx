@@ -4,7 +4,7 @@ import React from 'react'
 const announcements = () => {
   return (
     <View>
-      <Text>announcements</Text>
+      <Text>Coming Soon...</Text>
     </View>
   )
 }

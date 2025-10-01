@@ -137,7 +137,7 @@ const Page1 = () => {
   },[])
 
   const {user}=useUser()
-  const school:any=user?.publicMetadata["school"]
+  const school:any=user?.unsafeMetadata["school"]
 
   return (
       <SafeAreaView style={{backgroundColor:Colors.background}}>

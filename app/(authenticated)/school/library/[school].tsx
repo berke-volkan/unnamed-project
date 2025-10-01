@@ -25,8 +25,8 @@ const mock_books = [
 
 const library = () => {
   const { user } = useUser()
-  const libId: any = user?.publicMetadata["libid"]
-  const libScore: any = user?.publicMetadata["libScore"]
+  const libId: any = user?.unsafeMetadata["libid"]
+  const libScore: any = user?.unsafeMetadata["libScore"]
 
   return (
     <ScrollView>

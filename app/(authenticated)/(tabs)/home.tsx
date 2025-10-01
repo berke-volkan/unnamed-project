@@ -10,33 +10,33 @@ const home_data=[
   {
     id:1,
     icon:<Ionicons name="chatbubble-ellipses-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
-    text:"Diğer liselilerle sohbet et!",
+    text:"Talk with highschoolers!",
     url:"/(authenticated)/chat"
   },
     {
     id:2,
     icon:<Ionicons name="tennisball-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
-    text:"Etkinlikleri kontrol et!",
+    text:"Check out the events!",
     url:"/(authenticated)/events"
   },
   {
     id:3,
     icon:<Ionicons name="gift-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
-    text:"Kampanyaları kontrol et!",
+    text:"Check out the campaigns!",
     url:"/(authenticated)/perks/main"
   },
   {
     id:4,
     icon:<Ionicons name="bicycle-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
-    text:"Yeni bir kulübe katıl!",
+    text:"Join a new club!",
     url:"/(authenticated)/(tabs)/clubs"
   },
-    {
+   /* {
     id:5,
     icon:<Ionicons name="bicycle-outline" size={50} color={Colors.primary} style={{alignSelf:"center",paddingTop:"5%",paddingLeft:25 }}/>,
     text:"polls!",
     url:"/(authenticated)/polls"
-  },
+  },*/
 
 ]
 const Page = () => {
@@ -50,10 +50,10 @@ const Page = () => {
         </TouchableOpacity>
 
         <Text style={styles.welcome}>
-          Hoşgeldin {name}!
+          Welcome back {name}!
         </Text>
         <Text style={styles.welcome}>
-         Bugün ne yapacaksın?
+         What will you do today?
         </Text>
         {home_data.map((data)=>(
           <TouchableOpacity key={data.id} style={styles.works} onPress={()=>(router.push(data.url as any))} >
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   works:{
     backgroundColor:Colors.primaryMuted,
-    width:"90%",
+    width:"92%",
     height:"auto",
     marginLeft:"5%",
     marginTop:"1%",
