@@ -119,8 +119,8 @@ const Events = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-      <Text style={{fontWeight:"bold",fontSize:36,textAlign:"center"}}>💎 Etkinlikler</Text>
-      <Text style={{marginLeft:10,fontWeight:"bold",fontSize:20,marginTop:10}}>Yarışmalar</Text>
+      <Text style={{fontWeight:"bold",fontSize:36,textAlign:"center"}}>💎 Events</Text>
+      <Text style={{marginLeft:10,fontWeight:"bold",fontSize:20,marginTop:10}}>Competitions</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginTop:10}}>
       {mock_data_competitions.map((item, index) => (
         <View key={index} style={{marginVertical:10,backgroundColor:Colors.primaryMuted,marginLeft:10,borderRadius:10,width:300}}>
@@ -150,18 +150,18 @@ const Events = () => {
           ))}
           </View>
           <TouchableOpacity style={{backgroundColor:Colors.primary,width:"80%",borderRadius:10,padding:5,marginLeft:30,marginBottom:10}}>
-            <Text style={{textAlign:"center",color:"white"}}>Bireysel Katıl</Text>
+            <Text style={{textAlign:"center",color:"white"}}>Join Individually</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{backgroundColor:Colors.primary,width:"80%",borderRadius:10,padding:5,marginLeft:30,marginBottom:10}}>
-            <Text style={{textAlign:"center",color:"white"}}>Takıma Katıl</Text>
+            <Text style={{textAlign:"center",color:"white"}}>Join Team</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{backgroundColor:Colors.primary,width:"80%",borderRadius:10,padding:5,marginLeft:30,marginBottom:3}}>
-            <Text style={{textAlign:"center",color:"white"}}>Takım Oluştur</Text>
+            <Text style={{textAlign:"center",color:"white"}}>Create Team</Text>
           </TouchableOpacity>
         </View>
       ))}
       </ScrollView>
-      <Text style={{marginLeft:10,fontWeight:"bold",fontSize:20,marginTop:10}}>Sohbet / Forumlar</Text>
+      <Text style={{marginLeft:10,fontWeight:"bold",fontSize:20,marginTop:10}}>Chats</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{marginTop:10}}>
       {mock_data_sidetalks.map((item, index) => (
         <View key={index} style={{marginVertical:10,backgroundColor:Colors.primaryMuted,marginLeft:10,borderRadius:10,width:300}}>
@@ -200,7 +200,7 @@ const Events = () => {
 
 
           <TouchableOpacity style={{backgroundColor:Colors.primary,width:"80%",borderRadius:10,marginLeft:35,marginTop:10,marginBottom:5}} >
-            <Text style={{textAlign:"center",color:"white",verticalAlign:"middle"}}>Katıl</Text>
+            <Text style={{textAlign:"center",color:"white",verticalAlign:"middle"}}>Join</Text>
           </TouchableOpacity>
             <TouchableOpacity onPress={()=>{router.push({pathname:"/(authenticated)/events/speakers/[event]",params:{event:item.name}})}} style={{backgroundColor:Colors.primary,width:"80%",borderRadius:10,marginLeft:35,marginTop:5,marginBottom:15}}>
              <Text style={{textAlign:"center",color:"white",verticalAlign:"middle"}}>See more about speakers</Text>

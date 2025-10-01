@@ -52,17 +52,17 @@ const tutor = () => {
       {tutordata.map((tutor) => (
         <TouchableOpacity key={tutor.id} onPress={() => router.push(`/(authenticated)/(tabs)/home`)} style={{marginBottom:5}}>
           <View style={{ flexDirection: 'row', padding:20, borderBottomColor: Colors.lightGray }}>
-            <Image source={{ uri: tutor.img }} style={{ width: 90, height: 90, borderRadius: 25 }} />
+            <Image source={{ uri: tutor.img }} style={{ width: 100, height: 100, borderRadius: 25 }} />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{tutor.name}</Text>
               <Text style={{ fontSize: 25}}><Ionicons name='location-outline' size={25}/>{tutor.location}</Text>
               <Text style={{ color: Colors.gray,fontSize:23 }}>{tutor.subject}</Text>
-              <Text style={{ color: Colors.gray,fontSize:20,width:"20%" }}>{tutor.description}</Text>
-              <StarRatingDisplay rating={tutor.rating} starSize={45} />
+              <Text style={{ color: Colors.gray,fontSize:20,width:"15%" }}>{tutor.description}</Text>
+              <StarRatingDisplay rating={tutor.rating} starSize={25} />
               {tutor.reviews.map((review, index) => (
-                <Text key={index} style={{ color: Colors.gray, fontSize:20,marginLeft:0 }}>{review}</Text>
+                <Text key={index} style={{ color: Colors.gray, fontSize:18,marginLeft:0 }}>{review}</Text>
               ))}
-            </View>
+              </View>
           </View>
             <TouchableOpacity onPress={() => router.push(`/`)} style={{ backgroundColor: Colors.primary, padding: 10, borderRadius: 5, marginTop: 10,width:"70%",alignSelf:"center"}}>
              <Text style={{ color:  "white", textAlign: 'center', fontSize: 18 }}>Starts from {tutor.price}$/h</Text>

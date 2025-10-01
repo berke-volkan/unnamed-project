@@ -1,4 +1,6 @@
-import Colors from '@/constants/Colors';
+
+
+  import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { isClerkAPIResponseError, useSignIn } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -80,7 +82,7 @@ const login = () => {
           onPress={()=>onlogin(SIgnInType.email)}>
           <Text style={defaultStyles.buttonText}>Continue</Text>
         </TouchableOpacity>
-                {/*
+                
         <View style={{flexDirection:"row",alignItems:"center",gap:10}}>
           <View style={{height:StyleSheet.hairlineWidth,flex:1,backgroundColor:Colors.gray}}/>
           <Text style={[{color:Colors.gray},{fontSize:20}]}>or</Text>
@@ -100,7 +102,8 @@ const login = () => {
           <Ionicons name="logo-apple" size={24} color="black" />
           <Text style={[defaultStyles.buttonText,{color:"black"}] }>Continue with Apple</Text>
         </TouchableOpacity>
-        */}
+
+
     </View>
     </KeyboardAvoidingView>
   )
@@ -126,3 +129,5 @@ const  Styles = StyleSheet.create({
 })
 
 export default login
+
+

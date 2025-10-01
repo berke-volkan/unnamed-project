@@ -1,9 +1,12 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Colors from '@/constants/Colors'
 import { Ionicons } from '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useRouter } from 'expo-router'
+import { firebaseConfig } from '@/firebaseConfig'
+import { initializeApp } from 'firebase/app'
+import { getDatabase, onValue, ref } from 'firebase/database'
 const perks_mock = [
   {
     id: 1,
@@ -144,7 +147,58 @@ const raffle_perks_mock = [
 
 
 const main = () => {
-    const router=useRouter()
+  const router=useRouter()
+  const app=initializeApp(firebaseConfig)
+  const db=getDatabase(app)
+  let perkName:string[]=[]
+  const [perks,setPerks]=React.useState<{name:string,by:string,desc:string,icon:string,loc:string,used:string,supply:string}[]>([])
+  const getPerks= () => {
+    const campaignsRef = ref(db, 'campaigns');
+
+    onValue(campaignsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            perkName.push(childSnapshot.key as string);
+          });
+          
+          perkName.forEach((perk:any) => {
+            const campaignlRef = ref(db, `campaigns/${perk}`);
+            onValue(campaignlRef, (childSnapshot) => {
+              const data = childSnapshot.val();
+              console.log(data)
+              if (data) {
+                setPerks((prevPerks)=>[
+                  ...prevPerks,{
+                    name:data.name,
+                    by:data.by,
+                    desc:data.desc,
+                    icon:data.icon,
+                    loc:data.loc,
+                    used:data.used,
+                    supply:data.supply
+                  }
+                ])
+
+              }
+            });
+
+          });
+
+
+          } else {
+          console.log("No data available ");
+}
+    }
+  
+  );
+  }
+  useEffect(()=>{
+    getPerks()
+  },[])
+
+  useEffect(()=>{
+    console.log(perks)
+  },[perks])
   return (
     <ScrollView>
            <Text style={{fontWeight:"bold",fontSize:18,marginBottom:"3%",textAlign:"center"}}>Raffle's</Text>
@@ -174,8 +228,8 @@ const main = () => {
         <View >
            <Text style={{fontWeight:"bold",fontSize:18,marginBottom:"3%",textAlign:"center"}}>Campaign's</Text>
         <ScrollView  horizontal showsHorizontalScrollIndicator={false}>
-        {perks_mock.map((perk)=>(
-            <View key={perk.id} style={{backgroundColor:Colors.primaryMuted,width:"10%",borderRadius:15,marginBottom:20,alignItems:"center",marginLeft:5}}>
+{perks.map((perk)=>(
+            <View key={perk.name} style={{backgroundColor:Colors.primaryMuted,width:"25%",borderRadius:15,marginBottom:20,alignItems:"center",marginLeft:5}}>
               <Ionicons name={perk.icon as any} size={48} style={{backgroundColor:Colors.primaryMuted,marginTop:15}}/>
                 <Text style={{textAlign:"center",marginTop:5,fontSize:20,fontWeight:"bold",paddingRight:5,paddingLeft:5}}>{perk.name} | ({perk.used}/{perk.supply})</Text>
                 <Text style={{marginTop:5,fontSize:18,marginLeft:10,marginBottom:10,width:"80%"}}>{perk.desc}</Text>
@@ -183,13 +237,13 @@ const main = () => {
                     <Text style={{color:"white"}}>By {perk.by}</Text>
                  </View>
                  <View style={{backgroundColor:Colors.primary,marginBottom:"1%",borderRadius:5,padding:"2%"}}>
-                    {perk.loc==="Online" && <Text style={{color:"white"}}><Ionicons name='location-outline' style={{width:40,height:40}}/>Location: {perk.loc}</Text>}
+                    {perk.loc==="online" && <Text style={{color:"white"}}><Ionicons name='location-outline' style={{width:40,height:40}}/>Location: {perk.loc}</Text>}
                  </View>
                 </View>
-                <TouchableOpacity  style={{backgroundColor:"blue",marginBottom:5,width:300,height:20,borderRadius:5}} onPress={()=>{router.push({pathname:"/(authenticated)/perks/info/[perk]",params:{perk:perk.name}})}}>
+                <TouchableOpacity  style={{backgroundColor:"blue",marginBottom:5,width:200,height:20,borderRadius:5}} onPress={()=>{router.push({pathname:"/(authenticated)/perks/info/[perk]",params:{perk:perk.name}})}}>
                     <Text style={{textAlign:"center",color:"white"}}>More Info</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{backgroundColor:"red",marginBottom:15,width:300,height:20,borderRadius:5}} onPress={()=>(router.push({pathname:"/(authenticated)/perks/claim/[perk]",params:{perk:perk.name}}))}>
+                <TouchableOpacity style={{backgroundColor:"red",marginBottom:15,width:200,height:20,borderRadius:5}} onPress={()=>(router.push({pathname:"/(authenticated)/perks/claim/[perk]",params:{perk:perk.name}}))}>
                     <Text style={{textAlign:"center",color:"white"}}>Claim</Text>
                 </TouchableOpacity>
             </View>

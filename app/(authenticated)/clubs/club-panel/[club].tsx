@@ -9,6 +9,7 @@ import { StyleSheet, ViewStyle, StyleProp } from 'react-native';
 import { getDatabase, onValue, ref,update } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig';
+import { useUser } from '@clerk/clerk-expo';
 
 const mock_data = [
   {
@@ -102,34 +103,70 @@ const clubpanel = () => {
   const [classname, setClass] = React.useState<StyleProp<ViewStyle> | undefined>(undefined)
   const app=initializeApp(firebaseConfig)
   const db= getDatabase(app)
+  const {user}=useUser()
+  const user_id=user?.id
+
+  let c: string[] = [];
   const [desc,setDesc] = React.useState<any>(null)
+  const [memberL,setMemberL]=React.useState<any>()
+  const [school,setSchool]=React.useState<any>()
+  const [memberC,setMemberC]=React.useState<any>()
+  let admin:any[]=[]
+  const [isAdmin,setIsAdmin]=React.useState<any>()
 
-  const getClubInfo = (clubName: string) => {
-    const clubRef=ref(db, `clubs/${clubName}`);
-    onValue(clubRef,(snapshot)=>{
-      const data=snapshot.val()
-      
-    })
+  const getClubInfo = () => {
+    const ClubsRef = ref(db, 'clubs');
 
+    onValue(ClubsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            c.push(childSnapshot.key as string);
+          });
+          
+          c.forEach((clubName) => {
+            if(clubName===club){
+            const clublRef = ref(db, `clubs/${clubName}`);
+            onValue(clublRef, (childSnapshot) => {
+              const data = childSnapshot.val();
+              if (data) {
+                setDesc(data["desc"])
+                setMemberL(data["memberLimit"])
+                setSchool(data["school"])
+                setMemberC(data["memberCount"])
+                admin.push(data["admin"])
+              }
+            });
+            }
+
+          });
+
+
+          } else {
+          console.log("No data available");}
+    }
+  
+  );
   }
 
 
   useEffect(()=>{
-    mock_data.map(item=>{
-      if(item.name===club && item.admin===true){
+    getClubInfo()
+    console.log(admin[0])
+    console.log(user_id)
+    console.log(admin[0].includes(user_id))
+    if(admin[0].includes(user_id)===true){
         setClass(styles.class1)
+        setIsAdmin(true)
       }else{
         setClass(styles.class2)
       }
-    });
-    getClubInfo(club)
   }, []);
   return (
     <ScrollView>
       <Link href={{pathname:"/chat/[room]",params:{room:club}}} style={{alignSelf:"center"}}><Ionicons name='chatbubble-ellipses-outline' size={60} color={Colors.primary} style={{paddingTop:5,alignSelf:"center"}} /></Link>
-      <Text style={{textAlign:"center",fontWeight:"bold",fontSize:36}}>{club} | {mock_data.find((item) => item.name === club)?.memberCount}/{mock_data.find((item) => item.name === club)?.memberLimit}</Text>
-      <Text style={{textAlign:"center",fontSize:20}}>{mock_data.find((item) => item.name === club)?.desc}</Text>
-      <Text style={{textAlign:"center",fontSize:16,fontStyle:"italic"}}>Powered by </Text>
+      <Text style={{textAlign:"center",fontWeight:"bold",fontSize:36}}>{club} | {memberC}/{memberL}</Text>
+      <Text style={{textAlign:"center",fontSize:20}}>{desc}</Text>
+      <Text style={{textAlign:"center",fontSize:16,fontStyle:"italic"}}>Powered by {school} </Text>
       <Text style={{fontSize:30,fontWeight:"bold"}}>Club Calendar</Text>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{paddingBottom:10}}>
       {mock_event_data.map((item,index)=>(
@@ -157,7 +194,7 @@ const clubpanel = () => {
           <TouchableOpacity style={classname}>
         <Ionicons name='images-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
           </TouchableOpacity>
-          {mock_data.find((item) => item.name === club)?.admin===true && (
+          {isAdmin===true && (
         <TouchableOpacity style={classname}>
           <Ionicons name='settings-outline' size={24} color={Colors.primary} style={{alignSelf:"center", marginTop:"10%", paddingBottom:25}}/>
         </TouchableOpacity>

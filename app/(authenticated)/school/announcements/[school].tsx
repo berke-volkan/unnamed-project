@@ -6,11 +6,12 @@ import Colors from '@/constants/Colors'
 import { ScrollView } from 'react-native-gesture-handler'
 import { StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import { getDatabase } from "firebase/database";
+import { getDatabase, push } from "firebase/database";
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '@/firebaseConfig'
 import { ref, onValue } from "firebase/database";
-
+import { useUser } from '@clerk/clerk-expo'
+import { useLocalSearchParams, useRouter } from 'expo-router'
 
 const mock_data = [
   {
@@ -114,13 +115,17 @@ const mock_data1 = {
   }
 }
 const announcements = () => {
-  const isteacher=true
+  const {user}=useUser()
+  const isteacher=user?.publicMetadata["isTeacher"]
+  const { school } = useLocalSearchParams<{ school: string }>()
   const app = initializeApp(firebaseConfig);
   const db=getDatabase(app);;
   const [announcements, setannouncements] = React.useState<{id:string,name:string,desc:string,author:string,date:string}[]>([]);
+  const [title,setTitle]=React.useState<string>("")
+  const [msg,setMsg]=React.useState<string>("")
   let announcementNames: string[] = [];
   const getannouncements = () => {
-    const announcementsRef = ref(db, 'chat');
+    const announcementsRef = ref(db, `announcements/${school}`);
 
     onValue(announcementsRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -129,7 +134,7 @@ const announcements = () => {
           });
           
           announcementNames.forEach((announcementName) => {
-            const announcementRef = ref(db, `chat/${announcementName}`);
+            const announcementRef = ref(db, `announcements/${school}/${announcementName}`);
             onValue(announcementRef, (childSnapshot) => {
               const data = childSnapshot.val();
               if (data) {
@@ -159,38 +164,56 @@ const announcements = () => {
     getannouncements();
   }, []);
 
+  const uName=user?.firstName
+  const now = new Date().toISOString()
+  const router=useRouter()
+  const pushA=()=>{
+    const aref= ref(db,`/announcements/${school}`)
+    push(aref,{
+      id:3,
+      desc:msg,
+      name:title,
+      author:uName,
+      date:now
+    })
+    router.back()
+  }
+
   return (
     <ScrollView >
       {announcements.map((announcement)=>(
         <View key={announcement.id} style={{backgroundColor:"#90EE90",borderRadius:5,width:"85%",alignSelf:"center",marginBottom:5}}>
           <Text style={{textAlign:"center",fontSize:26,fontWeight:"bold"}}>{announcement.name}</Text>
           <Text style={{marginRight:5,marginLeft:5,fontSize:18}}>{announcement.desc}</Text>
-          <Text style={{textAlign:"right"}}>{announcement.author}</Text>
-          <Text style={{textAlign:"right"}}>{announcement.date}</Text>
+          <Text style={{textAlign:"right",marginRight:5}}>{announcement.author}</Text>
+          <Text style={{textAlign:"right",marginRight:5}}>{announcement.date}</Text>
         </View>
       ))}
-                {isteacher &&          <View style={styles.bottombar}>
-                          <TextInput 
-                          placeholder='Write your message'
-                          style={{backgroundColor:Colors.lightGray,width:"60%",height:40,marginLeft:10,borderRadius:10,textAlign:"center"}}
-                          /> 
-                          <View style={{width:1}}/>
-                          <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:40,alignItems:"center",marginLeft:5}}>
-                            <Ionicons name='send'  color={Colors.primary} style={{margin:10}} size={22}/>
-                          </TouchableOpacity>
-                        </View>}
+                {isteacher===true &&          
+                  <View style={{flexDirection:"column",marginTop:10}}>
+                  <TextInput 
+                  placeholder='Write a title for your message'
+                  style={{backgroundColor:Colors.lightGray,width:"90%",height:40,marginLeft:10,borderRadius:10,textAlign:"center",marginBottom:10}}
+                  onChange={(e)=>{setTitle(e.nativeEvent.text)}}
+                  /> 
+                  
+                  <TextInput 
+                  placeholder='Write your message'
+                  style={{backgroundColor:Colors.lightGray,width:"90%",height:160,marginLeft:10,borderRadius:10,textAlign:"center"}}
+                  onChange={(e)=>{setMsg(e.nativeEvent.text)}}
+                  /> 
+
+
+
+                  <TouchableOpacity style={{backgroundColor:Colors.primaryMuted,borderRadius:"30%",height:40,width:40,alignItems:"center",marginLeft:"85%",marginTop:10}} onPress={pushA}>
+                    <Ionicons name='send'  color={Colors.primary} style={{margin:10}} size={22}/>
+                  </TouchableOpacity>
+                  </View>
+                  }
     </ScrollView >
   )
 }
 
 
 
-const styles= StyleSheet.create({
-    bottombar:{
-    paddingTop:20,
-    alignItems:"center",
-    flexDirection:"row",
-    marginLeft:10
-  },
-})
 export default announcements

@@ -24,7 +24,7 @@ const Layout = () => {
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Ana Sayfa',
+          title: 'Home',
           headerShown: false,
           tabBarIcon: () => <TabIcon emoji="🏠" />,
         }}
@@ -32,7 +32,7 @@ const Layout = () => {
       <Tabs.Screen
         name="chat"
         options={{
-          title: 'Sohbet',
+          title: 'Chat',
           headerShown: false,
           tabBarIcon: () => <TabIcon emoji="👾" />,
         }}
@@ -40,7 +40,7 @@ const Layout = () => {
       <Tabs.Screen
         name="clubs"
         options={{
-          title: 'Kulüpler',
+          title: 'Clubs',
           headerShown: false,
           tabBarIcon: () => <TabIcon emoji="🌍" />,
         }}
@@ -48,7 +48,7 @@ const Layout = () => {
       <Tabs.Screen
         name="events"
         options={{
-          title: 'Etkinlikler',
+          title: 'Events',
           headerShown: false,
           tabBarIcon: () => <TabIcon emoji="💎" />,
         }}
@@ -61,6 +61,7 @@ const Layout = () => {
           tabBarIcon: () => <TabIcon emoji="🍅" />,
         }}
       />
+      {/*
       <Tabs.Screen
         name="workspace"
         options={{
@@ -69,10 +70,11 @@ const Layout = () => {
           tabBarIcon: () => <TabIcon emoji="🧰" />,
         }}
       />
+      */}
       <Tabs.Screen
         name="setting"
         options={{
-          title: 'Ayarlar',
+          title: 'Settings',
           headerShown: false,
           tabBarIcon: () => <TabIcon emoji="⚙️" />,
         }}

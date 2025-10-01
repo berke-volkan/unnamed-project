@@ -8,11 +8,11 @@ import { useState } from 'react'
 import CheckBox from '@react-native-community/checkbox';
 
 const mock_task_data=[
-  { id: 1, name: 'Task 1', description: 'Description 1' },
-  { id: 2, name: 'Task 2', description: 'Description 2' },
-  { id: 3, name: 'Task 3', description: 'Description 3' },
-  { id: 4, name: 'Task 4', description: 'Description 4' },
-  { id: 5, name: 'Task 5', description: 'Description 5' },
+  { id: 1, name: 'Task 1', description: 'Description 1',status:"done" },
+  { id: 2, name: 'Task 2', description: 'Description 2',status:"wip" },
+  { id: 3, name: 'Task 3', description: 'Description 3',status:"wip" },
+  { id: 4, name: 'Task 4', description: 'Description 4' ,status:"wip"},
+  { id: 5, name: 'Task 5', description: 'Description 5' ,status:"wip"},
 ]
 
 const mock_data=[
@@ -25,7 +25,9 @@ const mock_data=[
 
 const workspace = () => {
   const [selected, setSelected] = useState('');
-  const [agree, setAgree] = useState(false);
+  const handleTask = (index: number) => {
+};
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -45,9 +47,27 @@ const workspace = () => {
       {mock_task_data.map((task) => (
         task.id <= 3 ? (
         <View key={task.id} style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
-         <CheckBox value={agree} onChange={() => setAgree(!agree)} /> {/* TODO: FİX */}
-          <Text style={{ fontSize: 18 }}>{task.name}</Text>
-          <Text style={{ color: '#666' }}>{task.description}</Text>
+            {task.status==="done" && 
+            <View>
+               <View style={{flexDirection:"row"}}>
+                  <CheckBox  value={true} />
+                  <Text style={{ fontSize: 18,textDecorationLine: 'line-through'}}>{task.name}</Text>
+                </View>
+                <View>
+                  <Text style={{ color: '#666',textDecorationLine: 'line-through' }}>{task.description}</Text>
+                </View>
+            </View>}       
+            {task.status==="wip" && 
+            <View>
+               <View style={{flexDirection:"row"}}>
+                  <TouchableOpacity onPress={()=>{}}>
+                  </TouchableOpacity>
+                  <Text style={{ fontSize: 18}}>{task.name}</Text>
+                </View>
+                <View >
+                  <Text style={{ color: '#666' }}>{task.description}</Text>
+                </View>               
+            </View>}    
         </View>
         ) : null
       ))}

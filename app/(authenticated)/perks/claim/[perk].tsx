@@ -1,6 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '@/firebaseConfig';
+import { getDatabase, onValue, ref } from 'firebase/database';
 
 const perk_claim = [
   {
@@ -28,13 +31,42 @@ const perk_claim = [
 const perkClaim = () => {
     const {perk} = useLocalSearchParams<{perk:string}>()
     const [revealStatus, setStatus] = useState(false)
+    const app=initializeApp(firebaseConfig)
+    const db=getDatabase(app)
+  
+  const [perk_details,setPerks]=React?.useState<{name:string,by:string,desc:string,suitableFor:string,loc:string,used:string,total:string,web:string,limitations:any,plan_details:any,steps:any}>()
+
+  const getPerkInfo= () => {
+    const perkRef = ref(db, 'campaigns/'+perk);
+    onValue(perkRef,(snapshot)=>{
+      const data=snapshot?.val()
+      if (data) {
+      setPerks({
+        name: data?.name || "",
+        by: data?.by || "",
+        desc: data?.desc || "",
+        suitableFor: data?.suitableFor || "",
+        loc: data?.loc || "",
+        used: data?.used || "",
+        total: data?.supply || "", 
+        web: data?.web || "",
+        limitations: data?.limitations || [],
+        plan_details: data?.plan_details || [],
+        steps:data?.steps
+      });
+    }
+    })
+  }
+  useEffect(()=>(
+    getPerkInfo()
+  ),[])
   return (
     <View>
       <Text style={{textAlign:"center",fontSize:26}}>Claiming {perk}</Text>
       <Text style={{marginLeft:15,fontWeight:"bold",fontSize:20,marginBottom:8,marginTop:15}}>Steps for claim:</Text>
-      {perk_claim.map((perk)=>(
-        <View key={perk.id} style={{marginBottom:5}}>
-            <Text style={{marginLeft:25,fontSize:18}}>{perk.id}) {perk.what}</Text>
+      {perk_details?.steps.map((perk:any,index:any)=>(
+        <View key={index} style={{marginBottom:5}}>
+            <Text style={{marginLeft:25,fontSize:18}}>{index}) {perk}</Text>
         </View>
       ))}
       <Text style={{marginLeft:15,fontWeight:"bold",fontSize:20,marginBottom:8}}>Reveal Code</Text>
