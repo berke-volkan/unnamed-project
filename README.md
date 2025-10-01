@@ -19,5 +19,5 @@ A downloadable version will be available as soon as possible.
 - Install requirements
 - Run "npx expo run:android -c"
 - And see the magic
-
+. 
 
